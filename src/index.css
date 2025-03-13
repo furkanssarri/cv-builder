@@ -1,0 +1,25 @@
+body {
+  background-color: aliceblue;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+form fieldset {
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  margin: 5px;
+}
