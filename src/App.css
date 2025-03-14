@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin: 1rem;
+  padding: 1rem;
+}
+
+section {
+  background-color: #e8e8e87c;
+  margin: 1rem;
+  padding: 1rem;
+  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.41);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.accordion-content.open {
+  max-height: fit-content;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100% !important;
+}
+
+form fieldset {
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  margin: 5px;
+}
