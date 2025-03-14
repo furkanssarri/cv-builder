@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PersonalInfo from "./components/PersonalInfo";
 import EducationalInfo from "./components/EducationalInfo";
 import WorkExperience from "./components/WorkExperience";
@@ -31,6 +31,13 @@ function App() {
     "work-xp": false,
   });
 
+  const toggleOpenClose = (section) => {
+    setopenSections((prev) => ({
+      ...prev,
+      [section]: !prev[section],
+    }));
+  };
+
   const handleSubmit = (e, section) => {
     e.preventDefault(); // Prevent default form submission
 
@@ -40,12 +47,12 @@ function App() {
           console.log("Please fill out all fields in Personal Information.");
           return;
         }
-        console.log("Personal Info:", {
-          nameValue,
-          surNameValue,
-          emailValue,
-          phoneValue,
-        });
+
+        // Store to sessionStorage
+        sessionStorage.setItem(
+          "personal-info",
+          JSON.stringify({ nameValue, surNameValue, emailValue, phoneValue }),
+        );
 
         // Clear input fields
         setNameValue("");
@@ -59,12 +66,17 @@ function App() {
           console.log("Please fill out all fields in Educational Information.");
           return;
         }
-        console.log("Educational Info:", {
-          schoolName,
-          department,
-          educationStartDate,
-          educationEndDate,
-        });
+
+        // Store to sessionStorage
+        sessionStorage.setItem(
+          "edu-info",
+          JSON.stringify({
+            schoolName,
+            department,
+            educationStartDate,
+            educationEndDate,
+          }),
+        );
 
         // Clear input fields
         setSchoolName("");
@@ -78,13 +90,18 @@ function App() {
           console.log("Please fill out all fields in Work Experience.");
           return;
         }
-        console.log("Work Experience:", {
-          companyName,
-          position,
-          responsibilities,
-          workStartDate,
-          workEndDate,
-        });
+
+        // Store to sessionStorage
+        sessionStorage.setItem(
+          "work-xp",
+          JSON.stringify({
+            companyName,
+            position,
+            responsibilities,
+            workStartDate,
+            workEndDate,
+          }),
+        );
 
         // Clear input fields
         setCompanyName("");
@@ -99,12 +116,49 @@ function App() {
     }
   };
 
-  const toggleOpenClose = (section) => {
-    setopenSections((prev) => ({
-      ...prev,
-      [section]: !prev[section],
-    }));
-  };
+  useEffect(() => {
+    const personalInfo = sessionStorage.getItem("personal-info");
+    if (personalInfo) {
+      const { nameValue, surNameValue, emailValue, phoneValue } =
+        JSON.parse(personalInfo);
+      console.log("Personal Information: ", {
+        nameValue,
+        surNameValue,
+        emailValue,
+        phoneValue,
+      });
+    }
+
+    const eduInfo = sessionStorage.getItem("edu-info");
+    if (eduInfo) {
+      const { schoolName, department, educationStartDate, educationEndDate } =
+        JSON.parse(eduInfo);
+      console.log("Educational Information: ", {
+        schoolName,
+        department,
+        educationStartDate,
+        educationEndDate,
+      });
+    }
+
+    const workXp = sessionStorage.getItem("work-xp");
+    if (workXp) {
+      const {
+        companyName,
+        position,
+        responsibilities,
+        workStartDate,
+        workEndDate,
+      } = JSON.parse(workXp);
+      console.log("Work Experience: ", {
+        companyName,
+        position,
+        responsibilities,
+        workStartDate,
+        workEndDate,
+      });
+    }
+  }, []);
 
   return (
     <>
@@ -154,6 +208,10 @@ function App() {
           toggleOpenClose={() => toggleOpenClose("work-xp")}
         />
       </div>
+
+      <button type="button" onClick={() => sessionStorage.clear()}>
+        Clear Storage
+      </button>
     </>
   );
 }
