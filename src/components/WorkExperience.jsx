@@ -14,19 +14,20 @@ const WorkExperience = ({
   setWorkStartDate,
   setWorkEndDate,
   toggleOpenClose,
+  handleSubmit,
 }) => {
   return (
     <section
       className={`accordion-content ${isOpen ? "open" : ""}`}
       id="work-xp"
-      onClick={toggleOpenClose}
     >
-      <FaAngleDown />
-
+      <div className="accordion-header" onClick={toggleOpenClose}>
+        <h2>Work Experience</h2>
+        <FaAngleDown className={`icon ${isOpen ? "rotate" : ""}`} />
+      </div>
       {isOpen && (
-        <form>
+        <form onSubmit={handleSubmit}>
           <fieldset>
-            <legend>Work Experience</legend>
             <label htmlFor="companyName">Name of the Company</label>
             <input
               type="text"
@@ -54,7 +55,7 @@ const WorkExperience = ({
             </textarea>
             <label htmlFor="workStartDate">Start Date</label>
             <input
-              type="date"
+              type="text"
               name="workStartDate"
               id="workStartDate"
               value={workStartDate}
@@ -62,13 +63,14 @@ const WorkExperience = ({
             />
             <label htmlFor="workEndDate">End Date</label>
             <input
-              type="date"
+              type="text"
               name="workEndDate"
               id="workEndDate"
               value={workEndDate}
               onChange={(e) => setWorkEndDate(e.target.value)}
             />
           </fieldset>
+          <button type="submit">Submit</button>
         </form>
       )}
     </section>

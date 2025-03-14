@@ -12,19 +12,21 @@ const EducationalInfo = ({
   setEducationStartDate,
   setEducationEndDate,
   toggleOpenClose,
+  handleSubmit,
 }) => {
   return (
     <section
       className={`accordion-content ${isOpen ? "open" : ""}`}
       id="edu-info"
-      onClick={toggleOpenClose}
     >
-      <FaAngleDown />
+      <div className="accordion-header" onClick={toggleOpenClose}>
+        <h2>Education Information</h2>
+        <FaAngleDown className={`icon ${isOpen ? "rotate" : ""}`} />
+      </div>
 
       {isOpen && (
-        <form>
+        <form onSubmit={handleSubmit}>
           <fieldset>
-            <legend>Educational Information</legend>
             <label htmlFor="school">School</label>
             <input
               name="school"
@@ -43,25 +45,26 @@ const EducationalInfo = ({
               value={department}
               onChange={(e) => setDepartment(e.target.value)}
             />
-            <label htmlFor="startDate">Date Started</label>
+            <label htmlFor="educationStartDate">Date Started</label>
             <input
-              name="startDate"
-              id="startDate"
+              name="educationStartDate"
+              id="educationStartDate"
               placeholder="Start Date..."
-              type="date"
+              type="text"
               value={educationStartDate}
               onChange={(e) => setEducationStartDate(e.target.value)}
             />
-            <label htmlFor="gradDate">Date Graduated</label>
+            <label htmlFor="educationEndDate">Date Graduated</label>
             <input
               name="gradDate"
-              id="gradDate"
+              id="educationEndDate"
               placeholder="Graduation date..."
-              type="date"
+              type="text"
               value={educationEndDate}
               onChange={(e) => setEducationEndDate(e.target.value)}
             />
           </fieldset>
+          <button type="submit">Submit</button>
         </form>
       )}
     </section>

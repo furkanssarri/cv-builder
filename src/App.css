@@ -1,3 +1,7 @@
+#root {
+  text-align: center;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -15,13 +19,27 @@ section {
 }
 
 .accordion-content {
-  max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease-out;
 }
 
-.accordion-content.open {
-  max-height: fit-content;
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.accordion-header h2 {
+  margin: 0;
+}
+
+.icon {
+  transition: transform 0.3s ease;
+}
+
+.icon.rotate {
+  transform: rotate(180deg);
 }
 
 form {
@@ -34,8 +52,21 @@ form {
 form fieldset {
   display: flex;
   flex-direction: column;
+  border: none;
+  padding: 0;
 }
 
 form input {
   margin: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form textarea {
+  margin: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
 }

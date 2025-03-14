@@ -11,61 +11,68 @@ const PersonalInfo = ({
   setSurNameValue,
   setEmailValue,
   setPhoneValue,
+  handleSubmit,
   toggleOpenClose,
 }) => {
   return (
     <section
       className={`accordion-content ${isOpen ? "open" : ""}`}
       id="personal-info"
-      onClick={toggleOpenClose}
     >
-      <FaAngleDown />
+      <div className="accordion-header" onClick={toggleOpenClose}>
+        <h2>General Information</h2>
+        <FaAngleDown className={`icon ${isOpen ? "rotate" : ""}`} />
+      </div>
 
       {isOpen && (
-        <form>
+        <form onSubmit={handleSubmit}>
           <fieldset>
-            <legend>General Information</legend>
             <label htmlFor="name">Name</label>
             <input
               autoComplete="off"
-              name="name"
               id="name"
+              name="name"
+              onChange={(e) => setNameValue(e.target.value)}
               placeholder="Your name..."
+              required
               type="text"
               value={nameValue}
-              onChange={(e) => setNameValue(e.target.value)}
             />
             <label htmlFor="surname">Surname</label>
             <input
               autoComplete="off"
-              name="surname"
               id="surname"
+              name="surname"
+              onChange={(e) => setSurNameValue(e.target.value)}
               placeholder="Your surname..."
+              required
               type="text"
               value={surNameValue}
-              onChange={(e) => setSurNameValue(e.target.value)}
             />
             <label htmlFor="email">Email</label>
             <input
               autoComplete="off"
-              name="email"
               id="email"
+              name="email"
+              onChange={(e) => setEmailValue(e.target.value)}
               placeholder="Valid email address..."
+              required
               type="email"
               value={emailValue}
-              onChange={(e) => setEmailValue(e.target.value)}
             />
             <label htmlFor="phone">Phone</label>
             <input
               autoComplete="off"
-              name="phone"
               id="phone"
+              name="phone"
+              onChange={(e) => setPhoneValue(e.target.value)}
               placeholder="5XX XXX XX XX"
+              required
               type="tel"
               value={phoneValue}
-              onChange={(e) => setPhoneValue(e.target.value)}
             />
           </fieldset>
+          <button type="submit">Submit</button>
         </form>
       )}
     </section>
