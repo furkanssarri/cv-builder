@@ -19,16 +19,6 @@ const ResumeWorkExperience = () => {
           </div>
         </div>
       ))}
-
-      {/* <div className="left-area">
-        <span className="companyName">Milestone Software & Consultancy</span>
-        <span className="position">Frontend Dev</span>
-        <span className="responsibilities">Web Applications</span>
-      </div>
-      <div className="dates">
-        <span className="work-start-date">2016</span>
-        <span className="work-end-date">2019</span>
-      </div> */}
     </div>
   );
 };
