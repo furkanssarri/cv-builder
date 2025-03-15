@@ -1,6 +1,4 @@
-#root {
-  text-align: center;
-}
+@import url(./components/resume/styles/CvOutput.css);
 
 .container {
   display: flex;
@@ -11,7 +9,7 @@
   padding: 1rem;
 }
 
-section {
+#form-area section {
   background-color: #e8e8e87c;
   margin: 1rem;
   padding: 1rem;

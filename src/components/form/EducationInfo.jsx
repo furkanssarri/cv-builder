@@ -1,7 +1,7 @@
 import React from "react";
 import { FaAngleDown } from "react-icons/fa";
 
-const EducationalInfo = ({
+const EducationInfo = ({
   schoolName,
   department,
   educationStartDate,
@@ -71,4 +71,4 @@ const EducationalInfo = ({
   );
 };
 
-export default EducationalInfo;
+export default EducationInfo;

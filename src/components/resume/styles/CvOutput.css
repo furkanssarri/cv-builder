@@ -1,0 +1,27 @@
+.personal-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.personal-info span {
+  margin: 0.3rem;
+  padding: 0.3rem;
+}
+
+#full-name {
+  margin: 0;
+}
+
+#full-name h3 {
+  margin: 0.5rem;
+}
+
+a {
+  text-decoration: none;
+  color: initial;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: blue;
+}

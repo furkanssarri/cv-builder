@@ -1,7 +1,7 @@
 import React from "react";
 import { FaAngleDown } from "react-icons/fa";
 
-const WorkExperience = ({
+const WorkXpInfo = ({
   companyName,
   position,
   responsibilities,
@@ -77,4 +77,4 @@ const WorkExperience = ({
   );
 };
 
-export default WorkExperience;
+export default WorkXpInfo;

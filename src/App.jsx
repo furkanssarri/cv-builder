@@ -1,8 +1,9 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import PersonalInfo from "./components/PersonalInfo";
-import EducationalInfo from "./components/EducationalInfo";
-import WorkExperience from "./components/WorkExperience";
+import PersonalInfo from "./components/form/PersonalInfo";
+import EducationInfo from "./components/form/EducationInfo";
+import WorkXpInfo from "./components/form/WorkXpInfo";
+import CvOutput from "./components/resume/CvOutput";
 
 function App() {
   // General Info states
@@ -162,56 +163,61 @@ function App() {
 
   return (
     <>
-      <h1>Cv Form</h1>
       <div className="container">
-        <PersonalInfo
-          nameValue={nameValue}
-          surNameValue={surNameValue}
-          emailValue={emailValue}
-          phoneValue={phoneValue}
-          isOpen={openSections["personal-info"]}
-          setNameValue={setNameValue}
-          setSurNameValue={setSurNameValue}
-          setEmailValue={setEmailValue}
-          setPhoneValue={setPhoneValue}
-          handleSubmit={(e) => handleSubmit(e, "personal-info")}
-          toggleOpenClose={() => toggleOpenClose("personal-info")}
-        />
+        <section id="form-area">
+          <h1>Cv Form</h1>
+          <PersonalInfo
+            nameValue={nameValue}
+            surNameValue={surNameValue}
+            emailValue={emailValue}
+            phoneValue={phoneValue}
+            isOpen={openSections["personal-info"]}
+            setNameValue={setNameValue}
+            setSurNameValue={setSurNameValue}
+            setEmailValue={setEmailValue}
+            setPhoneValue={setPhoneValue}
+            handleSubmit={(e) => handleSubmit(e, "personal-info")}
+            toggleOpenClose={() => toggleOpenClose("personal-info")}
+          />
 
-        <EducationalInfo
-          schoolName={schoolName}
-          department={department}
-          educationStartDate={educationStartDate}
-          educationEndDate={educationEndDate}
-          isOpen={openSections["edu-info"]}
-          setSchoolName={setSchoolName}
-          setDepartment={setDepartment}
-          setEducationStartDate={setEducationStartDate}
-          setEducationEndDate={setEducationEndDate}
-          handleSubmit={(e) => handleSubmit(e, "edu-info")}
-          toggleOpenClose={() => toggleOpenClose("edu-info")}
-        />
+          <EducationInfo
+            schoolName={schoolName}
+            department={department}
+            educationStartDate={educationStartDate}
+            educationEndDate={educationEndDate}
+            isOpen={openSections["edu-info"]}
+            setSchoolName={setSchoolName}
+            setDepartment={setDepartment}
+            setEducationStartDate={setEducationStartDate}
+            setEducationEndDate={setEducationEndDate}
+            handleSubmit={(e) => handleSubmit(e, "edu-info")}
+            toggleOpenClose={() => toggleOpenClose("edu-info")}
+          />
 
-        <WorkExperience
-          companyName={companyName}
-          position={position}
-          responsibilities={responsibilities}
-          workStartDate={workStartDate}
-          workEndDate={workEndDate}
-          isOpen={openSections["work-xp"]}
-          setCompanyName={setCompanyName}
-          setPosition={setPosition}
-          setResponsibilities={setResponsibilities}
-          setWorkStartDate={setWorkStartDate}
-          setWorkEndDate={setWorkEndDate}
-          handleSubmit={(e) => handleSubmit(e, "work-xp")}
-          toggleOpenClose={() => toggleOpenClose("work-xp")}
-        />
+          <WorkXpInfo
+            companyName={companyName}
+            position={position}
+            responsibilities={responsibilities}
+            workStartDate={workStartDate}
+            workEndDate={workEndDate}
+            isOpen={openSections["work-xp"]}
+            setCompanyName={setCompanyName}
+            setPosition={setPosition}
+            setResponsibilities={setResponsibilities}
+            setWorkStartDate={setWorkStartDate}
+            setWorkEndDate={setWorkEndDate}
+            handleSubmit={(e) => handleSubmit(e, "work-xp")}
+            toggleOpenClose={() => toggleOpenClose("work-xp")}
+          />
+
+          <button type="button" onClick={() => sessionStorage.clear()}>
+            Clear Storage
+          </button>
+        </section>
+
+        <hr />
+        <CvOutput />
       </div>
-
-      <button type="button" onClick={() => sessionStorage.clear()}>
-        Clear Storage
-      </button>
     </>
   );
 }
