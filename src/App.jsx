@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PersonalInfo from "./components/form/PersonalInfo";
 import EducationInfo from "./components/form/EducationInfo";
 import WorkXpInfo from "./components/form/WorkXpInfo";
@@ -121,50 +121,6 @@ function App() {
         break;
     }
   };
-
-  useEffect(() => {
-    const personalInfo = sessionStorage.getItem("personal-info");
-    if (personalInfo) {
-      const { nameValue, surNameValue, emailValue, phoneValue } =
-        JSON.parse(personalInfo);
-      // console.log("Personal Information: ", {
-      //   nameValue,
-      //   surNameValue,
-      //   emailValue,
-      //   phoneValue,
-      // });
-    }
-
-    const eduInfo = sessionStorage.getItem("edu-info");
-    if (eduInfo) {
-      const { schoolName, department, educationStartDate, educationEndDate } =
-        JSON.parse(eduInfo);
-      // console.log("Educational Information: ", {
-      //   schoolName,
-      //   department,
-      //   educationStartDate,
-      //   educationEndDate,
-      // });
-    }
-
-    const workXp = sessionStorage.getItem("work-xp");
-    if (workXp) {
-      const {
-        companyName,
-        position,
-        responsibilities,
-        workStartDate,
-        workEndDate,
-      } = JSON.parse(workXp);
-      // console.log("Work Experience: ", {
-      //   companyName,
-      //   position,
-      //   responsibilities,
-      //   workStartDate,
-      //   workEndDate,
-      // });
-    }
-  }, []);
 
   return (
     <>
