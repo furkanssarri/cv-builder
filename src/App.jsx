@@ -42,6 +42,7 @@ function App() {
   const handleSubmit = (e, section) => {
     e.preventDefault(); // Prevent default form submission
 
+    let newEntry, existingData, updatedData;
     switch (section) {
       case "personal-info":
         if (!nameValue || !surNameValue || !emailValue || !phoneValue) {
@@ -50,10 +51,12 @@ function App() {
         }
 
         // Store to sessionStorage
-        sessionStorage.setItem(
-          "personal-info",
-          JSON.stringify({ nameValue, surNameValue, emailValue, phoneValue }),
-        );
+        newEntry = { nameValue, surNameValue, emailValue, phoneValue };
+
+        existingData =
+          JSON.parse(sessionStorage.getItem("personal-info")) || [];
+        updatedData = [...existingData, newEntry];
+        sessionStorage.setItem("personal-info", JSON.stringify(updatedData));
 
         // Clear input fields
         setNameValue("");
@@ -69,15 +72,16 @@ function App() {
         }
 
         // Store to sessionStorage
-        sessionStorage.setItem(
-          "edu-info",
-          JSON.stringify({
-            schoolName,
-            department,
-            educationStartDate,
-            educationEndDate,
-          }),
-        );
+        newEntry = {
+          schoolName,
+          department,
+          educationStartDate,
+          educationEndDate,
+        };
+
+        existingData = JSON.parse(sessionStorage.getItem("edu-info")) || [];
+        updatedData = [...existingData, newEntry];
+        sessionStorage.setItem("edu-info", JSON.stringify(updatedData));
 
         // Clear input fields
         setSchoolName("");
@@ -93,16 +97,17 @@ function App() {
         }
 
         // Store to sessionStorage
-        sessionStorage.setItem(
-          "work-xp",
-          JSON.stringify({
-            companyName,
-            position,
-            responsibilities,
-            workStartDate,
-            workEndDate,
-          }),
-        );
+        newEntry = {
+          companyName,
+          position,
+          responsibilities,
+          workStartDate,
+          workEndDate,
+        };
+
+        existingData = JSON.parse(sessionStorage.getItem("work-xp")) || [];
+        updatedData = [...existingData, newEntry];
+        sessionStorage.setItem("work-xp", JSON.stringify(updatedData));
 
         // Clear input fields
         setCompanyName("");
@@ -122,24 +127,24 @@ function App() {
     if (personalInfo) {
       const { nameValue, surNameValue, emailValue, phoneValue } =
         JSON.parse(personalInfo);
-      console.log("Personal Information: ", {
-        nameValue,
-        surNameValue,
-        emailValue,
-        phoneValue,
-      });
+      // console.log("Personal Information: ", {
+      //   nameValue,
+      //   surNameValue,
+      //   emailValue,
+      //   phoneValue,
+      // });
     }
 
     const eduInfo = sessionStorage.getItem("edu-info");
     if (eduInfo) {
       const { schoolName, department, educationStartDate, educationEndDate } =
         JSON.parse(eduInfo);
-      console.log("Educational Information: ", {
-        schoolName,
-        department,
-        educationStartDate,
-        educationEndDate,
-      });
+      // console.log("Educational Information: ", {
+      //   schoolName,
+      //   department,
+      //   educationStartDate,
+      //   educationEndDate,
+      // });
     }
 
     const workXp = sessionStorage.getItem("work-xp");
@@ -151,13 +156,13 @@ function App() {
         workStartDate,
         workEndDate,
       } = JSON.parse(workXp);
-      console.log("Work Experience: ", {
-        companyName,
-        position,
-        responsibilities,
-        workStartDate,
-        workEndDate,
-      });
+      // console.log("Work Experience: ", {
+      //   companyName,
+      //   position,
+      //   responsibilities,
+      //   workStartDate,
+      //   workEndDate,
+      // });
     }
   }, []);
 
