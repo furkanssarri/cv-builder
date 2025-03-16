@@ -29,7 +29,7 @@ const EducationInfo = ({
           <fieldset>
             <label htmlFor="school">School</label>
             <input
-              name="school"
+              name="schoolName"
               id="school"
               placeholder="School Name..."
               type="text"
@@ -56,7 +56,7 @@ const EducationInfo = ({
             />
             <label htmlFor="educationEndDate">Date Graduated</label>
             <input
-              name="gradDate"
+              name="educationEndDate"
               id="educationEndDate"
               placeholder="Graduation date..."
               type="text"

@@ -1,19 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
+import {
+  initializeFormState,
+  resetFormState,
+  saveFormData,
+} from "../../utils/formUtils";
 
-const PersonalInfo = ({
-  nameValue,
-  surNameValue,
-  emailValue,
-  phoneValue,
-  isOpen,
-  setNameValue,
-  setSurNameValue,
-  setEmailValue,
-  setPhoneValue,
-  handleSubmit,
-  toggleOpenClose,
-}) => {
+const PersonalInfo = ({ isOpen, toggleOpenClose }) => {
+  const [formData, setFormData] = useState(() =>
+    initializeFormState("personal-info"),
+  );
+
+  const handleChange = (e) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    saveFormData("personal-info", formData),
+      resetFormState("personal-info", setFormData);
+  };
+
   return (
     <section
       className={`accordion-content ${isOpen ? "open" : ""}`}
@@ -25,51 +35,51 @@ const PersonalInfo = ({
       </div>
 
       {isOpen && (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <fieldset>
             <label htmlFor="name">Name</label>
             <input
               autoComplete="off"
               id="name"
-              name="name"
-              onChange={(e) => setNameValue(e.target.value)}
+              name="nameValue"
+              onChange={(e) => handleChange(e)}
               placeholder="Your name..."
               required
               type="text"
-              value={nameValue}
+              value={formData.nameValue}
             />
             <label htmlFor="surname">Surname</label>
             <input
               autoComplete="off"
               id="surname"
-              name="surname"
-              onChange={(e) => setSurNameValue(e.target.value)}
+              name="surNameValue"
+              onChange={(e) => handleChange(e)}
               placeholder="Your surname..."
               required
               type="text"
-              value={surNameValue}
+              value={formData.surNameValue}
             />
             <label htmlFor="email">Email</label>
             <input
               autoComplete="off"
               id="email"
-              name="email"
-              onChange={(e) => setEmailValue(e.target.value)}
+              name="emailValue"
+              onChange={(e) => handleChange(e)}
               placeholder="Valid email address..."
               required
               type="email"
-              value={emailValue}
+              value={formData.emailValue}
             />
             <label htmlFor="phone">Phone</label>
             <input
               autoComplete="off"
               id="phone"
-              name="phone"
-              onChange={(e) => setPhoneValue(e.target.value)}
+              name="phoneValue"
+              onChange={(e) => handleChange(e)}
               placeholder="5XX XXX XX XX"
               required
               type="tel"
-              value={phoneValue}
+              value={formData.phoneValue}
             />
           </fieldset>
           <button type="submit">Submit</button>
