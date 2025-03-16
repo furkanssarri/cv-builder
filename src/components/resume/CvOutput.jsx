@@ -1,3 +1,5 @@
+import "./styles/CvOutput.css";
+
 import React from "react";
 import ResumePersonalInfo from "./ResumePersonalInfo";
 import ResumeEducationInfo from "./ResumeEducationInfo";

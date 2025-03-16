@@ -4,6 +4,8 @@ const ResumeWorkExperience = () => {
   const data = JSON.parse(sessionStorage.getItem("work-xp")) || [];
   return (
     <div className="work-experience">
+      <h4>Work Experiences</h4>
+      <hr />
       {data.map((workExp, index) => (
         <div key={index} className="work-exp-entry">
           <div className="left-area">

@@ -5,6 +5,8 @@ const ResumeEducationInfo = () => {
   return (
     <>
       <div className="education-information">
+        <h4>Education Information</h4>
+        <hr />
         {educationData.map((edu, index) => (
           <div key={index} className="education-entry">
             <div className="program">
