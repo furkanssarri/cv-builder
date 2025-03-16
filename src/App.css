@@ -72,3 +72,13 @@ form textarea {
 .btn {
   margin: 10px;
 }
+
+@media screen and (min-width: 900px) {
+  .container {
+    flex-direction: row;
+  }
+
+  .resume {
+    min-width: calc(100vw - 40vw);
+  }
+}
