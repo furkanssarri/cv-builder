@@ -33,14 +33,11 @@ function App() {
   });
 
   const toggleOpenClose = (section) => {
-    setopenSections((prev) => ({
-      ...prev,
-      [section]: !prev[section],
-    }));
+    setopenSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
 
   const handleSubmit = (e, section) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
 
     let newEntry, existingData, updatedData;
     switch (section) {
@@ -55,7 +52,13 @@ function App() {
 
         existingData =
           JSON.parse(sessionStorage.getItem("personal-info")) || [];
-        updatedData = [...existingData, newEntry];
+
+        if (selectedEntryIndex !== null) {
+          existingData[selectedEntryIndex] = newEntry;
+          updatedData = [...existingData];
+        } else {
+          updatedData = [...existingData, newEntry];
+        }
         sessionStorage.setItem("personal-info", JSON.stringify(updatedData));
 
         // Clear input fields
@@ -80,7 +83,12 @@ function App() {
         };
 
         existingData = JSON.parse(sessionStorage.getItem("edu-info")) || [];
-        updatedData = [...existingData, newEntry];
+        if (selectedEntryIndex !== null) {
+          existingData[selectedEntryIndex] = newEntry;
+          updatedData = [...existingData];
+        } else {
+          updatedData = [...existingData, newEntry];
+        }
         sessionStorage.setItem("edu-info", JSON.stringify(updatedData));
 
         // Clear input fields
@@ -106,7 +114,12 @@ function App() {
         };
 
         existingData = JSON.parse(sessionStorage.getItem("work-xp")) || [];
-        updatedData = [...existingData, newEntry];
+        if (selectedEntryIndex !== null) {
+          existingData[selectedEntryIndex] = newEntry;
+          updatedData = [...existingData];
+        } else {
+          updatedData = [...existingData, newEntry];
+        }
         sessionStorage.setItem("work-xp", JSON.stringify(updatedData));
 
         // Clear input fields
@@ -120,6 +133,50 @@ function App() {
       default:
         break;
     }
+  };
+
+  const [selectedEntryIndex, setSelectedEntryIndex] = useState(null);
+  const [, setEditSection] = useState(null);
+
+  const hanldeCvEdit = (key) => {
+    const existingData = JSON.parse(sessionStorage.getItem(key)) || [];
+
+    if (existingData.length === 0) {
+      console.log("No data found for this section.");
+      return;
+    }
+    let indexToEdit = 0;
+    if (existingData.length > 1) {
+      const userChoice = prompt(
+        `Select entry index (0 ${existingData.length - 1})`,
+      );
+      if (userChoice === null || isNaN(userChoice)) return;
+      indexToEdit = Number(userChoice);
+    }
+
+    const selectedData = existingData[indexToEdit];
+
+    if (key === "edu-info") {
+      setSchoolName(selectedData.schoolName || "");
+      setDepartment(selectedData.department || "");
+      setEducationStartDate(selectedData.educationStartDate || "");
+      setEducationEndDate(selectedData.educationEndDate || "");
+    } else if (key === "work-xp") {
+      setCompanyName(selectedData.companyName || "");
+      setPosition(selectedData.position || "");
+      setResponsibilities(selectedData.responsibilities || "");
+      setWorkStartDate(selectedData.workStartDate || "");
+      setWorkEndDate(selectedData.workEndDate || "");
+    } else if (key === "personal-info") {
+      setNameValue(selectedData.nameValue || "");
+      setSurNameValue(selectedData.surNameValue || "");
+      setEmailValue(selectedData.emailValue || "");
+      setPhoneValue(selectedData.phoneValue || "");
+    }
+
+    setSelectedEntryIndex(indexToEdit);
+    setEditSection(key);
+    toggleOpenClose(key);
   };
 
   return (
@@ -170,12 +227,47 @@ function App() {
             handleSubmit={(e) => handleSubmit(e, "work-xp")}
             toggleOpenClose={() => toggleOpenClose("work-xp")}
           />
-
-          <button type="button" onClick={() => sessionStorage.clear()}>
+        </section>
+        <div className="btn-wrapper">
+          <button
+            className="btn"
+            onClick={() => sessionStorage.clear()}
+            type="button"
+          >
             Clear Storage
           </button>
-        </section>
+          <br />
 
+          <div className="buttons-wrapper">
+            <button
+              className="btn"
+              data-id="personal-information"
+              id="editPersonalInfo"
+              onClick={() => hanldeCvEdit("personal-info")}
+              type="button"
+            >
+              Edit Personal Info
+            </button>
+            <button
+              className="btn"
+              data-id="education-information"
+              id="editEducationInfo"
+              onClick={() => hanldeCvEdit("edu-info")}
+              type="button"
+            >
+              Edit Education Info
+            </button>
+            <button
+              className="btn"
+              data-id="work-xp"
+              id="editWorkXp"
+              onClick={() => hanldeCvEdit("work-xp")}
+              type="button"
+            >
+              Edit Work Xp
+            </button>
+          </div>
+        </div>
         <hr />
         <CvOutput />
       </div>

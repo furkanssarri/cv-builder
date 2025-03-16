@@ -68,3 +68,7 @@ form textarea {
   border-radius: 4px;
   resize: vertical;
 }
+
+.btn {
+  margin: 10px;
+}
