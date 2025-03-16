@@ -141,10 +141,7 @@ function App() {
   const hanldeCvEdit = (key) => {
     const existingData = JSON.parse(sessionStorage.getItem(key)) || [];
 
-    if (existingData.length === 0) {
-      console.log("No data found for this section.");
-      return;
-    }
+    if (existingData.length === 0) return "No data found for this section.";
     let indexToEdit = 0;
     if (existingData.length > 1) {
       const userChoice = prompt(
