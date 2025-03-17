@@ -1,19 +1,14 @@
-import React from "react";
+import React, { forwardRef, useImperativeHandle } from "react";
 import { FaAngleDown } from "react-icons/fa";
+import useForm from "../../hooks/useForm";
 
-const EducationInfo = ({
-  schoolName,
-  department,
-  educationStartDate,
-  educationEndDate,
-  isOpen,
-  setSchoolName,
-  setDepartment,
-  setEducationStartDate,
-  setEducationEndDate,
-  toggleOpenClose,
-  handleSubmit,
-}) => {
+const EducationInfo = forwardRef(({ isOpen, toggleOpenClose }, ref) => {
+  const { formData, handleChange, handleSubmit, handleEdit } =
+    useForm("edu-info");
+
+  useImperativeHandle(ref, () => ({
+    handleEdit, // Exposes handleEdit to parent
+  }));
   return (
     <section
       className={`accordion-content ${isOpen ? "open" : ""}`}
@@ -25,16 +20,16 @@ const EducationInfo = ({
       </div>
 
       {isOpen && (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <fieldset>
             <label htmlFor="school">School</label>
             <input
-              name="school"
+              name="schoolName"
               id="school"
               placeholder="School Name..."
               type="text"
-              value={schoolName}
-              onChange={(e) => setSchoolName(e.target.value)}
+              value={formData.schoolName}
+              onChange={(e) => handleChange(e)}
             />
             <label htmlFor="department">Department</label>
             <input
@@ -42,8 +37,8 @@ const EducationInfo = ({
               id="department"
               placeholder="Your Department..."
               type="text"
-              value={department}
-              onChange={(e) => setDepartment(e.target.value)}
+              value={formData.department}
+              onChange={(e) => handleChange(e)}
             />
             <label htmlFor="educationStartDate">Date Started</label>
             <input
@@ -51,17 +46,17 @@ const EducationInfo = ({
               id="educationStartDate"
               placeholder="Start Date..."
               type="text"
-              value={educationStartDate}
-              onChange={(e) => setEducationStartDate(e.target.value)}
+              value={formData.educationStartDate}
+              onChange={(e) => handleChange(e)}
             />
             <label htmlFor="educationEndDate">Date Graduated</label>
             <input
-              name="gradDate"
+              name="educationEndDate"
               id="educationEndDate"
               placeholder="Graduation date..."
               type="text"
-              value={educationEndDate}
-              onChange={(e) => setEducationEndDate(e.target.value)}
+              value={formData.educationEndDate}
+              onChange={(e) => handleChange(e)}
             />
           </fieldset>
           <button type="submit">Submit</button>
@@ -69,6 +64,6 @@ const EducationInfo = ({
       )}
     </section>
   );
-};
+});
 
 export default EducationInfo;

@@ -1,19 +1,14 @@
-import React from "react";
+import React, { forwardRef, useImperativeHandle } from "react";
 import { FaAngleDown } from "react-icons/fa";
+import useForm from "../../hooks/useForm";
 
-const PersonalInfo = ({
-  nameValue,
-  surNameValue,
-  emailValue,
-  phoneValue,
-  isOpen,
-  setNameValue,
-  setSurNameValue,
-  setEmailValue,
-  setPhoneValue,
-  handleSubmit,
-  toggleOpenClose,
-}) => {
+const PersonalInfo = forwardRef(({ isOpen, toggleOpenClose }, ref) => {
+  const { formData, handleChange, handleSubmit, handleEdit } =
+    useForm("personal-info");
+
+  useImperativeHandle(ref, () => ({
+    handleEdit, // Exposes handleEdit to parent
+  }));
   return (
     <section
       className={`accordion-content ${isOpen ? "open" : ""}`}
@@ -25,51 +20,51 @@ const PersonalInfo = ({
       </div>
 
       {isOpen && (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <fieldset>
             <label htmlFor="name">Name</label>
             <input
               autoComplete="off"
               id="name"
-              name="name"
-              onChange={(e) => setNameValue(e.target.value)}
+              name="nameValue"
+              onChange={(e) => handleChange(e)}
               placeholder="Your name..."
               required
               type="text"
-              value={nameValue}
+              value={formData.nameValue}
             />
             <label htmlFor="surname">Surname</label>
             <input
               autoComplete="off"
               id="surname"
-              name="surname"
-              onChange={(e) => setSurNameValue(e.target.value)}
+              name="surNameValue"
+              onChange={(e) => handleChange(e)}
               placeholder="Your surname..."
               required
               type="text"
-              value={surNameValue}
+              value={formData.surNameValue}
             />
             <label htmlFor="email">Email</label>
             <input
               autoComplete="off"
               id="email"
-              name="email"
-              onChange={(e) => setEmailValue(e.target.value)}
+              name="emailValue"
+              onChange={(e) => handleChange(e)}
               placeholder="Valid email address..."
               required
               type="email"
-              value={emailValue}
+              value={formData.emailValue}
             />
             <label htmlFor="phone">Phone</label>
             <input
               autoComplete="off"
               id="phone"
-              name="phone"
-              onChange={(e) => setPhoneValue(e.target.value)}
+              name="phoneValue"
+              onChange={(e) => handleChange(e)}
               placeholder="5XX XXX XX XX"
               required
               type="tel"
-              value={phoneValue}
+              value={formData.phoneValue}
             />
           </fieldset>
           <button type="submit">Submit</button>
@@ -77,6 +72,6 @@ const PersonalInfo = ({
       )}
     </section>
   );
-};
+});
 
 export default PersonalInfo;
