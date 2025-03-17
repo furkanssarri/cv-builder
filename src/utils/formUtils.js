@@ -25,7 +25,10 @@ export const initializeFormState = (section) => {
       workEndDate: "",
     },
   };
-
+  if (!defaultStates[section]) {
+    console.error(`Invalid section: ${section}`);
+    return;
+  }
   return defaultStates[section] || {};
 };
 
@@ -34,6 +37,10 @@ export const initializeFormState = (section) => {
  */
 export const resetFormState = (section, setState) => {
   const defaultState = initializeFormState(section);
+  if (typeof setState !== "function") {
+    console.error("setState must be a function.");
+    return;
+  }
   setState({ ...defaultState, selectedEntryIndex: undefined }); // Clear selectedEntryIndex
 };
 

@@ -4,7 +4,7 @@ import {
   resetFormState,
   getEditableEntry,
 } from "../utils/formUtils";
-import { saveToStorage } from "../utils/storage";
+import { getFromStorage, saveToStorage } from "../utils/storage";
 
 const useForm = (section) => {
   const [formData, setFormData] = useState(() => initializeFormState(section));
@@ -27,7 +27,7 @@ const useForm = (section) => {
     e.preventDefault();
 
     // Ensure existingData is always an array
-    const existingData = JSON.parse(sessionStorage.getItem(section)) || [];
+    const existingData = getFromStorage(section);
 
     if (
       formData.selectedEntryIndex !== undefined &&
