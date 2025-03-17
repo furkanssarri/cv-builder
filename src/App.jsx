@@ -13,14 +13,14 @@ function App() {
     "work-xp": false,
   });
 
+  const toggleOpenClose = (section) => {
+    setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
+  };
+
   // Refs to child components
   const personalInfoRef = useRef(null);
   const educationInfoRef = useRef(null);
   const workXpRef = useRef(null);
-
-  const toggleOpenClose = (section) => {
-    setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
-  };
 
   const handleCvEdit = (section) => {
     const refMap = {

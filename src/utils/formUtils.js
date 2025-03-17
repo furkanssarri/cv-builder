@@ -1,4 +1,4 @@
-import { saveToStorage, getFromStorage } from "./storage";
+import { getFromStorage } from "./storage";
 
 /**
  * Initializes state for different form sections.
@@ -41,35 +41,8 @@ export const resetFormState = (section, setState) => {
     console.error("setState must be a function.");
     return;
   }
-  setState({ ...defaultState, selectedEntryIndex: undefined }); // Clear selectedEntryIndex
-};
-
-/**
- * Saves form data to session storage.
- */
-export const saveFormData = (section, formData) => {
-  if (!formData || typeof formData !== "object" || Array.isArray(formData)) {
-    console.error("Invalid form data provided.", formData);
-    return;
-  }
-
-  // Ensure existingData is always an array
-  const existingData = getFromStorage(section);
-
-  if (
-    formData.selectedEntryIndex !== undefined &&
-    formData.selectedEntryIndex !== null
-  ) {
-    // Update existing entry (immutable approach)
-    const updatedData = existingData.map((entry, index) =>
-      index === formData.selectedEntryIndex ? formData : entry,
-    );
-    saveToStorage(section, updatedData);
-  } else {
-    // Add new entry (immutable approach)
-    const newData = [...existingData, formData];
-    saveToStorage(section, newData);
-  }
+  // Clear selectedEntryIndex
+  setState({ ...defaultState, selectedEntryIndex: undefined });
 };
 
 /**

@@ -26,7 +26,7 @@ const useForm = (section) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Ensure existingData is always an array
+    // Get the existing data, ensuring it is returned in an array
     const existingData = getFromStorage(section);
 
     if (
