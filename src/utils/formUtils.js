@@ -47,7 +47,7 @@ export const saveFormData = (section, formData) => {
   }
 
   // Ensure existingData is always an array
-  const existingData = JSON.parse(sessionStorage.getItem(section)) || [];
+  const existingData = getFromStorage(section);
 
   if (
     formData.selectedEntryIndex !== undefined &&

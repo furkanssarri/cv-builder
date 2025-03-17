@@ -1,20 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   initializeFormState,
   resetFormState,
   getEditableEntry,
 } from "../utils/formUtils";
-import { getFromStorage, saveToStorage } from "../utils/storage";
+import { saveToStorage } from "../utils/storage";
 
 const useForm = (section) => {
   const [formData, setFormData] = useState(() => initializeFormState(section));
 
-  useEffect(() => {
-    const storedData = getFromStorage(section);
-    if (storedData.length > 0) {
-      setFormData(storedData[0]); // Load the first entry by default
-    }
-  }, [section]);
+  // useEffect(() => {
+  //   const storedData = getFromStorage(section);
+  //   if (storedData.length > 0) {
+  //     setFormData(storedData[0]); // Load the first entry by default
+  //   }
+  // }, [section]);
 
   const handleChange = (e) => {
     setFormData((prevData) => ({
