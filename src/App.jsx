@@ -1,60 +1,38 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import PersonalInfo from "./components/form/PersonalInfo";
 import EducationInfo from "./components/form/EducationInfo";
 import WorkXpInfo from "./components/form/WorkXpInfo";
 import CvOutput from "./components/resume/CvOutput";
 
-import { saveToStorage, getFromStorage } from "./utils/storage";
-import { getEditableEntry } from "./utils/formUtils";
-
 function App() {
-  // const [nameValue, setNameValue] = useState("");
-  // const [surNameValue, setSurNameValue] = useState("");
-  // const [emailValue, setEmailValue] = useState("");
-  // const [phoneValue, setPhoneValue] = useState("");
-  // Educational Info states
-  const [schoolName, setSchoolName] = useState("");
-  const [department, setDepartment] = useState("");
-  const [educationStartDate, setEducationStartDate] = useState("");
-  const [educationEndDate, setEducationEndDate] = useState("");
-
-  // Work Experience Info states
-  const [companyName, setCompanyName] = useState("");
-  const [position, setPosition] = useState("");
-  const [responsibilities, setResponsibilities] = useState("");
-  const [workStartDate, setWorkStartDate] = useState("");
-  const [workEndDate, setWorkEndDate] = useState("");
-
   // Accordion States
-  const [openSections, setopenSections] = useState({
+  const [openSections, setOpenSections] = useState({
     "personal-info": false,
     "edu-info": false,
     "work-xp": false,
   });
 
+  // Refs to child components
+  const personalInfoRef = useRef(null);
+  const educationInfoRef = useRef(null);
+  const workXpRef = useRef(null);
+
   const toggleOpenClose = (section) => {
-    setopenSections((prev) => ({ ...prev, [section]: !prev[section] }));
+    setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
 
-  const handleSubmit = (e, formData, section) => {
-    e.preventDefault();
-
-    let existingData = getFromStorage(section);
-    let updatedData = [...existingData, formData];
-
-    saveToStorage(section, updatedData);
+  const handleCvEdit = (section) => {
+    const refMap = {
+      "personal-info": personalInfoRef,
+      "edu-info": educationInfoRef,
+      "work-xp": workXpRef,
+    };
+    if (refMap[section] && refMap[section].current) {
+      refMap[section].current.handleEdit(); // Calls handleEdit inside child component
+    }
+    toggleOpenClose(section);
   };
-
-  // const [, setSelectedEntryIndex] = useState(null);
-  // const [, setEditSection] = useState(null);
-
-  // const handleCvEdit = () => {
-  //   const editableEntry = getEditableEntry("edu-info");
-  //   if (!editableEntry) return;
-
-  //   setFormData(editableEntry.entry);
-  // };
 
   return (
     <>
@@ -62,42 +40,24 @@ function App() {
         <div>
           <section id="form-area">
             <h1>Cv Form</h1>
+
             <PersonalInfo
+              ref={personalInfoRef}
               isOpen={openSections["personal-info"]}
-              handleSubmit={(e) => handleSubmit(e, "personal-info")}
               toggleOpenClose={() => toggleOpenClose("personal-info")}
             />
-
             <EducationInfo
-              schoolName={schoolName}
-              department={department}
-              educationStartDate={educationStartDate}
-              educationEndDate={educationEndDate}
+              ref={educationInfoRef}
               isOpen={openSections["edu-info"]}
-              setSchoolName={setSchoolName}
-              setDepartment={setDepartment}
-              setEducationStartDate={setEducationStartDate}
-              setEducationEndDate={setEducationEndDate}
-              handleSubmit={(e) => handleSubmit(e, "edu-info")}
               toggleOpenClose={() => toggleOpenClose("edu-info")}
             />
-
             <WorkXpInfo
-              companyName={companyName}
-              position={position}
-              responsibilities={responsibilities}
-              workStartDate={workStartDate}
-              workEndDate={workEndDate}
+              ref={workXpRef}
               isOpen={openSections["work-xp"]}
-              setCompanyName={setCompanyName}
-              setPosition={setPosition}
-              setResponsibilities={setResponsibilities}
-              setWorkStartDate={setWorkStartDate}
-              setWorkEndDate={setWorkEndDate}
-              handleSubmit={(e) => handleSubmit(e, "work-xp")}
               toggleOpenClose={() => toggleOpenClose("work-xp")}
             />
           </section>
+
           <div className="btn-wrapper">
             <button
               className="btn"
@@ -107,11 +67,9 @@ function App() {
               Clear Storage
             </button>
             <br />
-
             <div className="buttons-wrapper">
               <button
                 className="btn"
-                data-id="personal-information"
                 id="editPersonalInfo"
                 onClick={() => handleCvEdit("personal-info")}
                 type="button"
@@ -120,7 +78,6 @@ function App() {
               </button>
               <button
                 className="btn"
-                data-id="education-information"
                 id="editEducationInfo"
                 onClick={() => handleCvEdit("edu-info")}
                 type="button"
@@ -129,7 +86,6 @@ function App() {
               </button>
               <button
                 className="btn"
-                data-id="work-xp"
                 id="editWorkXp"
                 onClick={() => handleCvEdit("work-xp")}
                 type="button"
@@ -139,7 +95,6 @@ function App() {
             </div>
           </div>
         </div>
-        {/* <hr /> */}
         <CvOutput />
       </div>
     </>

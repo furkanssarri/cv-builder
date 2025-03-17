@@ -33,16 +33,36 @@ export const initializeFormState = (section) => {
  * Resets form fields dynamically.
  */
 export const resetFormState = (section, setState) => {
-  setState(initializeFormState(section));
+  const defaultState = initializeFormState(section);
+  setState({ ...defaultState, selectedEntryIndex: undefined }); // Clear selectedEntryIndex
 };
 
 /**
  * Saves form data to session storage.
  */
 export const saveFormData = (section, formData) => {
-  const existingData = getFromStorage(section);
-  const updatedData = [...existingData, formData];
-  saveToStorage(section, updatedData);
+  if (!formData || typeof formData !== "object" || Array.isArray(formData)) {
+    console.error("Invalid form data provided.", formData);
+    return;
+  }
+
+  // Ensure existingData is always an array
+  const existingData = JSON.parse(sessionStorage.getItem(section)) || [];
+
+  if (
+    formData.selectedEntryIndex !== undefined &&
+    formData.selectedEntryIndex !== null
+  ) {
+    // Update existing entry (immutable approach)
+    const updatedData = existingData.map((entry, index) =>
+      index === formData.selectedEntryIndex ? formData : entry,
+    );
+    saveToStorage(section, updatedData);
+  } else {
+    // Add new entry (immutable approach)
+    const newData = [...existingData, formData];
+    saveToStorage(section, newData);
+  }
 };
 
 /**
@@ -50,7 +70,11 @@ export const saveFormData = (section, formData) => {
  */
 export const getEditableEntry = (section) => {
   const existingData = getFromStorage(section);
-  if (existingData.length === 0) return null;
+
+  if (existingData.length === 0) {
+    console.warn(`No existing data found for ${section}`);
+    return null;
+  }
 
   let indexToEdit = 0;
   if (existingData.length > 1) {
@@ -61,5 +85,5 @@ export const getEditableEntry = (section) => {
     indexToEdit = Number(userChoice);
   }
 
-  return { entry: existingData[indexToEdit], index: indexToEdit };
+  return { entry: { ...existingData[indexToEdit] }, index: indexToEdit };
 };

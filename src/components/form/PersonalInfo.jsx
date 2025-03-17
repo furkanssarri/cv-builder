@@ -1,29 +1,14 @@
-import React, { useState } from "react";
+import React, { forwardRef, useImperativeHandle } from "react";
 import { FaAngleDown } from "react-icons/fa";
-import {
-  initializeFormState,
-  resetFormState,
-  saveFormData,
-} from "../../utils/formUtils";
+import useForm from "../../hooks/useForm";
 
-const PersonalInfo = ({ isOpen, toggleOpenClose }) => {
-  const [formData, setFormData] = useState(() =>
-    initializeFormState("personal-info"),
-  );
+const PersonalInfo = forwardRef(({ isOpen, toggleOpenClose }, ref) => {
+  const { formData, handleChange, handleSubmit, handleEdit } =
+    useForm("personal-info");
 
-  const handleChange = (e) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    saveFormData("personal-info", formData),
-      resetFormState("personal-info", setFormData);
-  };
-
+  useImperativeHandle(ref, () => ({
+    handleEdit, // Exposes handleEdit to parent
+  }));
   return (
     <section
       className={`accordion-content ${isOpen ? "open" : ""}`}
@@ -87,6 +72,6 @@ const PersonalInfo = ({ isOpen, toggleOpenClose }) => {
       )}
     </section>
   );
-};
+});
 
 export default PersonalInfo;
