@@ -23,9 +23,8 @@ hr {
   border-top: none;
 }
 
-.education-information h4,
-.work-experience h4 {
-  /* border-bottom: 1px solid #000; */
+h4 {
+  border-bottom: 1px solid #000;
   text-align: left;
   margin: 0;
   padding-left: 0.5rem;
@@ -79,6 +78,10 @@ span {
 .dates {
   display: flex;
   flex-direction: column;
+}
+
+.school-name {
+  font-weight: 600;
 }
 
 /* WORK EXPERIENCE SECTION  */
