@@ -4,6 +4,7 @@
   --main-bg: #f3f4f6;
   --black-text-color: black;
   --white-text-color: white;
+  --gray-text-color: #636363;
 }
 
 .container {
@@ -80,12 +81,33 @@ form textarea {
   margin: 10px;
 }
 
+@media screen and (max-width: 320px) {
+  .container {
+    width: 100%;
+    /* margin: calc(0.3rem + 1vw);
+    padding: calc(0.3rem + 1vw); */
+    margin: 0;
+    padding: 0;
+  }
+}
+
 @media screen and (min-width: 900px) {
   .container {
     flex-direction: row;
+    gap: 2rem;
+    /* max-width: min-content; */
   }
 
-  .resume {
-    min-width: calc(100vw - 40vw);
+  .form-wrapper {
+    min-width: 20vw;
   }
+}
+
+@media screen and (min-width: 1440px) {
+  /* .container {
+    max-width: 80vw;
+  } */
+  /* .form-wrapper {
+    min-width: 20vw;
+  } */
 }

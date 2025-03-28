@@ -37,7 +37,7 @@ function App() {
   return (
     <>
       <div className="container">
-        <div>
+        <div className="form-wrapper">
           <section id="form-area">
             <h1>Cv Form</h1>
 
