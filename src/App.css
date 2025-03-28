@@ -1,5 +1,11 @@
 /* @import url(./components/resume/styles/CvOutput.css); */
 
+:root {
+  --main-bg: #f3f4f6;
+  --black-text-color: black;
+  --white-text-color: white;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -10,10 +16,11 @@
 }
 
 #form-area section {
-  background-color: #e8e8e87c;
+  background-color: #fff;
   margin: 1rem;
   padding: 1rem;
-  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.41);
+  box-shadow: 0px 0px 15px 0px #00000069;
+  border-radius: 16px;
 }
 
 .accordion-content {
