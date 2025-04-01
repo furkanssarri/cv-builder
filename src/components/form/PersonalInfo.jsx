@@ -31,7 +31,7 @@ const PersonalInfo = forwardRef(({ isOpen, toggleOpenClose }, ref) => {
               placeholder="Your name..."
               required
               type="text"
-              value={formData.nameValue}
+              value={formData.nameValue || ""}
             />
             <label htmlFor="surname">Surname</label>
             <input
@@ -42,7 +42,7 @@ const PersonalInfo = forwardRef(({ isOpen, toggleOpenClose }, ref) => {
               placeholder="Your surname..."
               required
               type="text"
-              value={formData.surNameValue}
+              value={formData.surNameValue || ""}
             />
             <label htmlFor="email">Email</label>
             <input
@@ -53,7 +53,7 @@ const PersonalInfo = forwardRef(({ isOpen, toggleOpenClose }, ref) => {
               placeholder="Valid email address..."
               required
               type="email"
-              value={formData.emailValue}
+              value={formData.emailValue || ""}
             />
             <label htmlFor="phone">Phone</label>
             <input
@@ -64,7 +64,7 @@ const PersonalInfo = forwardRef(({ isOpen, toggleOpenClose }, ref) => {
               placeholder="5XX XXX XX XX"
               required
               type="tel"
-              value={formData.phoneValue}
+              value={formData.phoneValue || ""}
             />
           </fieldset>
           <button type="submit">Submit</button>

@@ -7,7 +7,10 @@ import {
 import { getFromStorage, saveToStorage } from "../utils/storage";
 
 const useForm = (section) => {
-  const [formData, setFormData] = useState(() => initializeFormState(section));
+  const [formData, setFormData] = useState(() => {
+    const initialState = initializeFormState(section);
+    return initialState ? initialState : {};
+  });
 
   // useEffect(() => {
   //   const storedData = getFromStorage(section);
@@ -28,11 +31,11 @@ const useForm = (section) => {
 
     // Get the existing data, ensuring it is returned in an array
     const existingData = getFromStorage(section);
-
-    if (
+    const isEditing =
       formData.selectedEntryIndex !== undefined &&
-      formData.selectedEntryIndex !== null
-    ) {
+      formData.selectedEntryIndex !== null;
+
+    if (isEditing) {
       // Update existing entry (immutable approach)
       const updatedData = existingData.map((entry, index) =>
         index === formData.selectedEntryIndex ? formData : entry,

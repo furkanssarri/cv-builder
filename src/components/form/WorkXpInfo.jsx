@@ -27,7 +27,7 @@ const WorkXpInfo = forwardRef(({ isOpen, toggleOpenClose }, ref) => {
               type="text"
               name="companyName"
               id="companyName"
-              value={formData.companyName}
+              value={formData.companyName || ""}
               onChange={(e) => handleChange(e)}
             />
             <label htmlFor="position">Position</label>
@@ -35,14 +35,14 @@ const WorkXpInfo = forwardRef(({ isOpen, toggleOpenClose }, ref) => {
               type="text"
               name="position"
               id="position"
-              value={formData.position}
+              value={formData.position || ""}
               onChange={(e) => handleChange(e)}
             />
             <label htmlFor="responsibilities">Main Responsibilities</label>
             <textarea
               name="responsibilities"
               id="responsibilities"
-              value={formData.responsibilities}
+              value={formData.responsibilities || ""}
               onChange={(e) => handleChange(e)}
             />
             <label htmlFor="workStartDate">Start Date</label>
@@ -50,7 +50,7 @@ const WorkXpInfo = forwardRef(({ isOpen, toggleOpenClose }, ref) => {
               type="text"
               name="workStartDate"
               id="workStartDate"
-              value={formData.workStartDate}
+              value={formData.workStartDate || ""}
               onChange={(e) => handleChange(e)}
             />
             <label htmlFor="workEndDate">End Date</label>
@@ -58,7 +58,7 @@ const WorkXpInfo = forwardRef(({ isOpen, toggleOpenClose }, ref) => {
               type="text"
               name="workEndDate"
               id="workEndDate"
-              value={formData.workEndDate}
+              value={formData.workEndDate || ""}
               onChange={(e) => handleChange(e)}
             />
           </fieldset>
