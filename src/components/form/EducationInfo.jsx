@@ -1,50 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaAngleDown } from "react-icons/fa";
-// import useForm from "../../hooks/useForm";
-import { saveToStorage, getFromStorage } from "../../utils/storage";
+import useForm from "../../hooks/useForm";
 
 const EducationInfo = ({ isOpen, toggleOpenClose }) => {
-  const storedData = getFromStorage("edu-info") || [];
-  const [educationEntries, setEducationEntries] = useState(
-    storedData.length > 0
-      ? storedData
-      : [
-          {
-            id: Date.now(),
-            schoolName: "",
-            department: "",
-            educationStartDate: "",
-            educationEndDate: "",
-          },
-        ],
-  );
-  const handleChange = (id, e) => {
-    const { name, value } = e.target;
-    setEducationEntries((prevEntries) =>
-      prevEntries.map((entry) =>
-        entry.id === id ? { ...entry, [name]: value } : entry,
-      ),
-    );
-  };
-
-  const handleAddEntry = () => {
-    setEducationEntries([
-      ...educationEntries,
-      {
-        id: Date.now(),
-        schoolName: "",
-        department: "",
-        educationStartDate: "",
-        educationEndDate: "",
-      },
-    ]);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    saveToStorage("edu-info", educationEntries);
-  };
-
+  const { entries, handleChange, handleAddEntry, handleSubmit } =
+    useForm("edu-info");
   return (
     <section
       className={`accordion-content ${isOpen ? "open" : ""}`}
@@ -57,52 +17,52 @@ const EducationInfo = ({ isOpen, toggleOpenClose }) => {
 
       {isOpen && (
         <form onSubmit={handleSubmit}>
-          {educationEntries.map((entry) => (
-            <fieldset key={entry.id}>
-              <label htmlFor={`school-${entry.id}`}>School</label>
+          {entries.map((entry, index) => (
+            <fieldset key={index} className="edu-info-entry">
+              <label htmlFor={`school-name-${index}`}>School Name</label>
               <input
                 name="schoolName"
-                id={`school-${entry.id}`}
+                id={`school-name-${index}`}
                 placeholder="School Name..."
                 type="text"
-                value={entry.schoolName}
-                onChange={(e) => handleChange(entry.id, e)}
+                value={entry.schoolName || ""}
+                onChange={(e) => handleChange(index, e)}
               />
-              <label htmlFor={`department-${entry.id}`}>Department</label>
+              <label htmlFor={`department-${index}`}>Department</label>
               <input
                 name="department"
-                id={`department-${entry.id}`}
+                id={`department-${index}`}
                 placeholder="Your Department..."
                 type="text"
-                value={entry.department}
-                onChange={(e) => handleChange(entry.id, e)}
+                value={entry.department || ""}
+                onChange={(e) => handleChange(index, e)}
               />
-              <label htmlFor={`educationStartDate-${entry.id}`}>
+              <label htmlFor={`educationStartDate-${index}`}>
                 Date Started
               </label>
               <input
                 name="educationStartDate"
-                id={`educationStartDate-${entry.id}`}
+                id={`educationStartDate-${index}`}
                 placeholder="Start Date..."
                 type="text"
-                value={entry.educationStartDate}
-                onChange={(e) => handleChange(entry.id, e)}
+                value={entry.educationStartDate || ""}
+                onChange={(e) => handleChange(index, e)}
               />
-              <label htmlFor={`educationEndDate-${entry.id}`}>
+              <label htmlFor={`educationEndDate-${index}`}>
                 Date Graduated
               </label>
               <input
                 name="educationEndDate"
-                id={`educationEndDate-${entry.id}`}
+                id={`educationEndDate-${index}`}
                 placeholder="Graduation date..."
                 type="text"
-                value={entry.educationEndDate}
-                onChange={(e) => handleChange(entry.id, e)}
+                value={entry.educationEndDate || ""}
+                onChange={(e) => handleChange(index, e)}
               />
             </fieldset>
           ))}
           <button type="button" onClick={handleAddEntry}>
-            Add Another Entry
+            Add New Entry
           </button>
           <button type="submit">Submit</button>
         </form>

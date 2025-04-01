@@ -1,14 +1,10 @@
-import React, { forwardRef, useImperativeHandle } from "react";
+import React from "react";
 import { FaAngleDown } from "react-icons/fa";
 import useForm from "../../hooks/useForm";
 
-const WorkXpInfo = forwardRef(({ isOpen, toggleOpenClose }, ref) => {
-  const { formData, handleChange, handleSubmit, handleEdit } =
+const WorkXpInfo = ({ isOpen, toggleOpenClose }) => {
+  const { entries, handleChange, handleAddEntry, handleSubmit } =
     useForm("work-xp");
-
-  useImperativeHandle(ref, () => ({
-    handleEdit, // Exposes handleEdit to parent
-  }));
 
   return (
     <section
@@ -20,53 +16,67 @@ const WorkXpInfo = forwardRef(({ isOpen, toggleOpenClose }, ref) => {
         <FaAngleDown className={`icon ${isOpen ? "rotate" : ""}`} />
       </div>
       {isOpen && (
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <fieldset>
-            <label htmlFor="companyName">Name of the Company</label>
-            <input
-              type="text"
-              name="companyName"
-              id="companyName"
-              value={formData.companyName || ""}
-              onChange={(e) => handleChange(e)}
-            />
-            <label htmlFor="position">Position</label>
-            <input
-              type="text"
-              name="position"
-              id="position"
-              value={formData.position || ""}
-              onChange={(e) => handleChange(e)}
-            />
-            <label htmlFor="responsibilities">Main Responsibilities</label>
-            <textarea
-              name="responsibilities"
-              id="responsibilities"
-              value={formData.responsibilities || ""}
-              onChange={(e) => handleChange(e)}
-            />
-            <label htmlFor="workStartDate">Start Date</label>
-            <input
-              type="text"
-              name="workStartDate"
-              id="workStartDate"
-              value={formData.workStartDate || ""}
-              onChange={(e) => handleChange(e)}
-            />
-            <label htmlFor="workEndDate">End Date</label>
-            <input
-              type="text"
-              name="workEndDate"
-              id="workEndDate"
-              value={formData.workEndDate || ""}
-              onChange={(e) => handleChange(e)}
-            />
-          </fieldset>
+        <form onSubmit={handleSubmit}>
+          {entries.map((entry, index) => (
+            <fieldset key={index} className="work-xp-entry">
+              <label htmlFor={`company-name-${index}`}>
+                Name of the Company
+              </label>
+              <input
+                name="companyName"
+                id={`company-name-${index}`}
+                placeholder="Company Name..."
+                type="text"
+                value={entry.companyName}
+                onChange={(e) => handleChange(index, e)}
+              />
+              <label htmlFor={`position-${index}`}>Position</label>
+              <input
+                name="position"
+                id={`position-${index}`}
+                placeholder="Your position..."
+                type="text"
+                value={entry.position}
+                onChange={(e) => handleChange(index, e)}
+              />
+              <label htmlFor={`responsibilities-${index}`}>
+                Main Responsibilities
+              </label>
+              <textarea
+                name="responsibilities"
+                id={`responsibilities-${index}`}
+                placeholder="Your responsibilities..."
+                value={entry.responsibilities}
+                onChange={(e) => handleChange(index, e)}
+              />
+              <label htmlFor={`work-start-${index}`}>Start Date</label>
+              <input
+                name="workStartDate"
+                id={`work-start-${index}`}
+                placeholder="Start Date..."
+                type="text"
+                value={entry.workStartDate}
+                onChange={(e) => handleChange(index, e)}
+              />
+              <label htmlFor={`work-end-${index}`}>End Date</label>
+              <input
+                name="workEndDate"
+                id={`work-end-${index}`}
+                placeholder="End Date..."
+                type="text"
+                value={entry.workEndDate}
+                onChange={(e) => handleChange(index, e)}
+              />
+            </fieldset>
+          ))}
+          <button type="button" onClick={handleAddEntry}>
+            Add New Entry
+          </button>
           <button type="submit">Submit</button>
         </form>
       )}
     </section>
   );
-});
+};
 
 export default WorkXpInfo;
