@@ -36,13 +36,12 @@ export const initializeFormState = (section) => {
  * Resets form fields dynamically.
  */
 export const resetFormState = (section, setState) => {
-  const defaultState = initializeFormState(section);
   if (typeof setState !== "function") {
     console.error("setState must be a function.");
     return;
   }
   // Clear selectedEntryIndex
-  setState({ ...defaultState, selectedEntryIndex: undefined });
+  setState([initializeFormState(section)]);
 };
 
 /**
@@ -51,7 +50,7 @@ export const resetFormState = (section, setState) => {
 export const getEditableEntry = (section) => {
   const existingData = getFromStorage(section);
 
-  if (existingData.length === 0) {
+  if (!Array.isArray(existingData) || existingData.length === 0) {
     console.warn(`No existing data found for ${section}`);
     return null;
   }
@@ -61,9 +60,21 @@ export const getEditableEntry = (section) => {
     const userChoice = prompt(
       `Select entry index (0 - ${existingData.length - 1}):`,
     );
-    if (userChoice === null || isNaN(userChoice)) return null;
-    indexToEdit = Number(userChoice);
+    const parsedChoice = Number(userChoice);
+    if (
+      userChoice === null ||
+      isNaN(parsedChoice) ||
+      parsedChoice < 0 ||
+      parsedChoice >= existingData.length
+    ) {
+      console.warn("Invalid index selected.");
+      return null;
+    }
+    indexToEdit = parsedChoice;
   }
 
+  console.log(indexToEdit);
+  console.log(existingData[indexToEdit]);
+  console.log({ entry: { ...existingData[indexToEdit] }, index: indexToEdit });
   return { entry: { ...existingData[indexToEdit] }, index: indexToEdit };
 };

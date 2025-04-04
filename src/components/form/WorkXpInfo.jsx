@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useImperativeHandle, forwardRef } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import useForm from "../../hooks/useForm";
 
-const WorkXpInfo = ({ isOpen, toggleOpenClose }) => {
-  const { entries, handleChange, handleAddEntry, handleSubmit } =
+const WorkXpInfo = forwardRef(({ isOpen, toggleOpenClose }, ref) => {
+  const { entries, handleChange, handleAddEntry, handleSubmit, handleEdit } =
     useForm("work-xp");
 
+  useImperativeHandle(ref, () => ({
+    handleEdit, // Exposes handleEdit to parent
+  }));
   return (
     <section
       className={`accordion-content ${isOpen ? "open" : ""}`}
@@ -77,6 +80,6 @@ const WorkXpInfo = ({ isOpen, toggleOpenClose }) => {
       )}
     </section>
   );
-};
+});
 
 export default WorkXpInfo;

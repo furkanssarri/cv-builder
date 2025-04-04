@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useImperativeHandle, forwardRef } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import useForm from "../../hooks/useForm";
 
-const EducationInfo = ({ isOpen, toggleOpenClose }) => {
-  const { entries, handleChange, handleAddEntry, handleSubmit } =
+const EducationInfo = forwardRef(({ isOpen, toggleOpenClose }, ref) => {
+  const { entries, handleChange, handleAddEntry, handleSubmit, handleEdit } =
     useForm("edu-info");
+
+  useImperativeHandle(ref, () => ({
+    handleEdit, // Exposes handleEdit to parent
+  }));
   return (
     <section
       className={`accordion-content ${isOpen ? "open" : ""}`}
@@ -69,6 +73,6 @@ const EducationInfo = ({ isOpen, toggleOpenClose }) => {
       )}
     </section>
   );
-};
+});
 
 export default EducationInfo;

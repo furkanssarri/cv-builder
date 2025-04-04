@@ -1,16 +1,18 @@
 import { useState } from "react";
 import {
   initializeFormState,
-  // resetFormState,
+  resetFormState,
   getEditableEntry,
 } from "../utils/formUtils";
-import { getFromStorage, saveToStorage } from "../utils/storage";
+import { /*getFromStorage,*/ saveToStorage } from "../utils/storage";
 
 const useForm = (section) => {
-  const [entries, setEntries] = useState(() => {
-    const storedData = getFromStorage(section);
-    return storedData.length > 0 ? storedData : [initializeFormState(section)];
-  });
+  // const [entries, setEntries] = useState(() => {
+  //   const storedData = getFromStorage(section);
+  //   return storedData.length > 0 ? storedData : [initializeFormState(section)];
+  // });
+
+  const [entries, setEntries] = useState([initializeFormState(section)]);
 
   // useEffect(() => {
   //   const storedData = getFromStorage(section);
@@ -35,6 +37,7 @@ const useForm = (section) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     saveToStorage(section, entries);
+    resetFormState(section, setEntries); // Clears form fields
   };
 
   // const handleSubmit = (e) => {
