@@ -22,17 +22,14 @@ function App() {
   const educationInfoRef = useRef(null);
   const workXpRef = useRef(null);
 
-  const handleCvEdit = (section, index) => {
+  const handleCvEdit = (section) => {
     const refMap = {
       "personal-info": personalInfoRef,
       "edu-info": educationInfoRef,
       "work-xp": workXpRef,
     };
     if (refMap[section] && refMap[section].current) {
-      if (refMap[section]?.current) {
-        refMap[section].current.handleEdit(index);
-      }
-      // refMap[section].current.handleEdit(index); // Calls handleEdit inside child component
+      refMap[section].current.handleEdit(); // Calls handleEdit inside child component
     }
     toggleOpenClose(section);
   };
