@@ -1,19 +1,15 @@
 import React from "react";
-import OutputPersonalInfo from "./OutputPersonalInfo";
-import OutputEducationInfo from "./OutputEducationInfo";
-import OutputWorkXp from "./OutputWorkXp";
+import OutputSection from "./OutputSection";
 
 const Resume = ({ personalInfo, educationInfo, workExperience }) => {
   return (
     <>
-      <div>
-        <h2 className="data-section">Personal Information</h2>
-        <OutputPersonalInfo personalInfo={personalInfo} />
-        <h2 className="data-section">Education Information</h2>
-        <OutputEducationInfo educationInfo={educationInfo} />
-        <h2 className="data-section">Work Experience</h2>
-        <OutputWorkXp workExperience={workExperience} />
-      </div>
+      <h2>Personal Info</h2>
+      <OutputSection personalInfo={personalInfo} />
+      <h2>Education Info</h2>
+      <OutputSection educationInfo={educationInfo} />
+      <h2>Work Experience</h2>
+      <OutputSection workExperience={workExperience} />
     </>
   );
 };
