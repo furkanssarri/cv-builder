@@ -6,13 +6,13 @@ import Experience from "./ExperienceForm";
 const Form = () => {
   return (
     <>
-      <section className="personal-info">
+      <section className="personal-info visible">
         <PersonalInfo />
       </section>
-      <section className="education-info">
+      <section className="education-info hidden">
         <EducationInfo />
       </section>
-      <section>
+      <section className="experience-info hidden">
         <Experience />
       </section>
     </>
