@@ -1,23 +1,27 @@
 import "./App.css";
-import Form from "./components/form/Form";
+import { useState } from "react";
 import Resume from "./components/output/Resume";
-import {
-  PERSONAL_INFO_DATA,
-  EDUCATION_INFO_DATA,
-  WORK_XP_DATA,
-} from "./assets/data";
+import FormContainer from "./components/form/FormContainer";
 
 function App() {
+  const [personalInfo, setPersonalInfo] = useState(null);
+  const [educationInfo, setEducationInfo] = useState(null);
+  const [workInfo, setWorkInfo] = useState(null);
+
   return (
     <div className="App">
       <h1>Build CV</h1>
-      <Form />
+      <FormContainer
+        setPersonalInfo={setPersonalInfo}
+        setEducationInfo={setEducationInfo}
+        setWorkInfo={setWorkInfo}
+      />
 
       <h1>CV Output</h1>
       <Resume
-        personalInfo={PERSONAL_INFO_DATA}
-        educationInfo={EDUCATION_INFO_DATA}
-        workExperience={WORK_XP_DATA}
+        personalInfo={personalInfo}
+        educationInfo={educationInfo}
+        workInfo={workInfo}
       />
     </div>
   );

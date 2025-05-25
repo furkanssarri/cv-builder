@@ -1,58 +1,65 @@
 import React from "react";
 
-const OutputSection = ({ personalInfo, educationInfo, workExperience }) => {
+const OutputSection = ({ personalInfo, educationInfo, workInfo }) => {
   return (
     <div className="display-info">
       {personalInfo && (
-        <div className="data-row">
-          <h4>{`${personalInfo.name} ${personalInfo.surname}`}</h4>
-          <p>
-            <strong>Email: </strong>
-            <a href={`mailto:${personalInfo.email}`}>{personalInfo.email}</a>
-          </p>
-          <p>
-            <strong>Phone: </strong>
-            <a href={`tel:${personalInfo.phone}`}>{personalInfo.phone}</a>
-          </p>
-        </div>
+        <>
+          <div className="personal-data-row">
+            <h4>{`${personalInfo.firstName} ${personalInfo.lastName}`}</h4>
+            <span className="contact-info">
+              <a href={`mailto:${personalInfo.email}`}>{personalInfo.email}</a>
+            </span>
+            <span className="contact-info">
+              <a href={`tel:${personalInfo.phone}`}>{personalInfo.phone}</a>
+            </span>
+          </div>
+          <hr />
+        </>
       )}
 
       {educationInfo && (
-        <div className="data-row">
-          <p>
-            <strong>Institution: </strong>
-            {educationInfo.institution}
-          </p>
-          <p>
-            <strong>Degree: </strong>
-            {educationInfo.degree}
-          </p>
-          <p>
-            <strong>Years: </strong>
-            {educationInfo.startYear} - {educationInfo.endYear}
-          </p>
-        </div>
+        <>
+          <div className="data-row">
+            <div className="entry">
+              <strong>Institution: </strong>
+              {educationInfo.institution}
+            </div>
+            <div className="entry">
+              <strong>Degree: </strong>
+              {educationInfo.degree}
+            </div>
+            <div className="entry">
+              <strong>Years: </strong>
+              {educationInfo.startYear} - {educationInfo.endYear}
+            </div>
+          </div>
+          <hr />
+        </>
       )}
 
-      {workExperience && (
-        <div className="data-row">
-          <p>
-            <strong>Company: </strong>
-            {workExperience.company}
-          </p>
-          <p>
-            <strong>Position: </strong>
-            {workExperience.jobTitle}
-          </p>
-          <p>
-            <strong>Job Description: </strong>
-            {workExperience.description}
-          </p>
-          <p>
-            <strong>Years: </strong>
-            {workExperience.startYear} - {workExperience.endYear}
-          </p>
-        </div>
+      {workInfo && (
+        <>
+          <div className="data-row">
+            <div className="entry">
+              <strong>Company: </strong>
+              {workInfo.company}
+            </div>
+            <div className="entry">
+              <strong>Position: </strong>
+              {workInfo.position}
+            </div>
+            <div className="entry">
+              <strong>Job Description: </strong>
+              {workInfo.description}
+            </div>
+            <div className="entry">
+              <strong>Years: </strong>
+              {workInfo.startYear} - {workInfo.endYear}
+            </div>
+          </div>
+          <hr />
+        </>
       )}
     </div>
   );
