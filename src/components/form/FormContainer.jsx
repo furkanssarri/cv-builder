@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DynamicForm from "./DynamicForm.jsx";
 import {
   personalInfoFields,
@@ -25,6 +25,15 @@ const FormContainer = ({ setPersonalInfo, setEducationInfo, setWorkInfo }) => {
       state: setWorkInfo,
     },
   ];
+
+  useEffect(() => {
+    formSections.forEach(({ title, state }) => {
+      const stored = sessionStorage.getItem(title);
+      if (stored) {
+        state(JSON.parse(stored));
+      }
+    });
+  }, []);
 
   const toggleSection = (index) => {
     setOpenSections((prev) => {

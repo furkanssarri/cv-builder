@@ -13,7 +13,7 @@ const DynamicForm = ({ fields, storageKey, onSubmitData }) => {
     const stored = sessionStorage.getItem(storageKey);
     if (stored) {
       setFormData(JSON.parse(stored));
-      onSubmitData(JSON.parse(stored)); // preload output
+      // onSubmitData(JSON.parse(stored)); // preload output
     }
   }, [storageKey, onSubmitData]);
 
