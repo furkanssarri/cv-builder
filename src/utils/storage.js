@@ -4,8 +4,7 @@ export const saveToStorage = (key, data) => {
       console.error("Data must be an array.");
       return;
     }
-    const serializedData = JSON.stringify(data);
-    sessionStorage.setItem(key, serializedData);
+    sessionStorage.setItem(key, JSON.stringify(data));
   } catch (error) {
     console.error(`Error saving data to sessionStorage for ${key}:`, error);
   }
@@ -13,8 +12,8 @@ export const saveToStorage = (key, data) => {
 
 export const getFromStorage = (key) => {
   try {
-    const storedData = JSON.parse(sessionStorage.getItem(key));
-    return storedData ? storedData : [];
+    const storedData = sessionStorage.getItem(key);
+    return storedData ? JSON.parse(storedData) : [];
   } catch (error) {
     console.error(`Error parsing sessionStorage data for ${key}:`, error);
     return [];

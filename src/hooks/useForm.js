@@ -4,10 +4,15 @@ import {
   resetFormState,
   getEditableEntry,
 } from "../utils/formUtils";
-import { getFromStorage, saveToStorage } from "../utils/storage";
+import { /*getFromStorage,*/ saveToStorage } from "../utils/storage";
 
 const useForm = (section) => {
-  const [formData, setFormData] = useState(() => initializeFormState(section));
+  // const [entries, setEntries] = useState(() => {
+  //   const storedData = getFromStorage(section);
+  //   return storedData.length > 0 ? storedData : [initializeFormState(section)];
+  // });
+
+  const [entries, setEntries] = useState([initializeFormState(section)]);
 
   // useEffect(() => {
   //   const storedData = getFromStorage(section);
@@ -16,49 +21,62 @@ const useForm = (section) => {
   //   }
   // }, [section]);
 
-  const handleChange = (e) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [e.target.name]: e.target.value,
-    }));
+  const handleChange = (index, e) => {
+    const { name, value } = e.target;
+    setEntries((prevEntries) =>
+      prevEntries.map((entry, i) =>
+        i === index ? { ...entry, [name]: value } : entry,
+      ),
+    );
+  };
+
+  const handleAddEntry = () => {
+    setEntries([...entries, initializeFormState(section)]);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Get the existing data, ensuring it is returned in an array
-    const existingData = getFromStorage(section);
-
-    if (
-      formData.selectedEntryIndex !== undefined &&
-      formData.selectedEntryIndex !== null
-    ) {
-      // Update existing entry (immutable approach)
-      const updatedData = existingData.map((entry, index) =>
-        index === formData.selectedEntryIndex ? formData : entry,
-      );
-      saveToStorage(section, updatedData);
-    } else {
-      // Add new entry (immutable approach)
-      const newData = [...existingData, formData];
-      saveToStorage(section, newData);
-    }
-
-    // Reset form state and clear selectedEntryIndex
-    resetFormState(section, setFormData);
-    setFormData((prevData) => ({ ...prevData, selectedEntryIndex: undefined }));
+    saveToStorage(section, entries);
+    resetFormState(section, setEntries); // Clears form fields
   };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   // Get the existing data, ensuring it is returned in an array
+  //   const existingData = getFromStorage(section);
+  //   const isEditing =
+  //     formData.selectedEntryIndex !== undefined &&
+  //     formData.selectedEntryIndex !== null;
+
+  //   if (isEditing) {
+  //     // Update existing entry (immutable approach)
+  //     const updatedData = existingData.map((entry, index) =>
+  //       index === formData.selectedEntryIndex ? formData : entry,
+  //     );
+  //     saveToStorage(section, updatedData);
+  //   } else {
+  //     // Add new entry (immutable approach)
+  //     const newData = [...existingData, formData];
+  //     saveToStorage(section, newData);
+  //   }
+
+  //   // Reset form state and clear selectedEntryIndex
+  //   resetFormState(section, setFormData);
+  //   setFormData((prevData) => ({ ...prevData, selectedEntryIndex: undefined }));
+  // };
 
   const handleEdit = () => {
     const editableEntry = getEditableEntry(section);
     if (!editableEntry) return;
-    setFormData({
-      ...editableEntry.entry,
-      selectedEntryIndex: editableEntry.index,
-    });
+    setEntries((prevEntries) =>
+      prevEntries.map((entry, i) =>
+        i === editableEntry.index ? { ...editableEntry.entry } : entry,
+      ),
+    );
   };
 
-  return { formData, handleChange, handleSubmit, handleEdit };
+  return { entries, handleChange, handleAddEntry, handleSubmit, handleEdit };
 };
 
 export default useForm;

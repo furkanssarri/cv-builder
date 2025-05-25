@@ -1,9 +1,9 @@
-import React, { forwardRef, useImperativeHandle } from "react";
+import React, { useImperativeHandle, forwardRef } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import useForm from "../../hooks/useForm";
 
 const EducationInfo = forwardRef(({ isOpen, toggleOpenClose }, ref) => {
-  const { formData, handleChange, handleSubmit, handleEdit } =
+  const { entries, handleChange, handleAddEntry, handleSubmit, handleEdit } =
     useForm("edu-info");
 
   useImperativeHandle(ref, () => ({
@@ -20,45 +20,54 @@ const EducationInfo = forwardRef(({ isOpen, toggleOpenClose }, ref) => {
       </div>
 
       {isOpen && (
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <fieldset>
-            <label htmlFor="school">School</label>
-            <input
-              name="schoolName"
-              id="school"
-              placeholder="School Name..."
-              type="text"
-              value={formData.schoolName}
-              onChange={(e) => handleChange(e)}
-            />
-            <label htmlFor="department">Department</label>
-            <input
-              name="department"
-              id="department"
-              placeholder="Your Department..."
-              type="text"
-              value={formData.department}
-              onChange={(e) => handleChange(e)}
-            />
-            <label htmlFor="educationStartDate">Date Started</label>
-            <input
-              name="educationStartDate"
-              id="educationStartDate"
-              placeholder="Start Date..."
-              type="text"
-              value={formData.educationStartDate}
-              onChange={(e) => handleChange(e)}
-            />
-            <label htmlFor="educationEndDate">Date Graduated</label>
-            <input
-              name="educationEndDate"
-              id="educationEndDate"
-              placeholder="Graduation date..."
-              type="text"
-              value={formData.educationEndDate}
-              onChange={(e) => handleChange(e)}
-            />
-          </fieldset>
+        <form onSubmit={handleSubmit}>
+          {entries.map((entry, index) => (
+            <fieldset key={index} className="edu-info-entry">
+              <label htmlFor={`school-name-${index}`}>School Name</label>
+              <input
+                name="schoolName"
+                id={`school-name-${index}`}
+                placeholder="School Name..."
+                type="text"
+                value={entry.schoolName || ""}
+                onChange={(e) => handleChange(index, e)}
+              />
+              <label htmlFor={`department-${index}`}>Department</label>
+              <input
+                name="department"
+                id={`department-${index}`}
+                placeholder="Your Department..."
+                type="text"
+                value={entry.department || ""}
+                onChange={(e) => handleChange(index, e)}
+              />
+              <label htmlFor={`educationStartDate-${index}`}>
+                Date Started
+              </label>
+              <input
+                name="educationStartDate"
+                id={`educationStartDate-${index}`}
+                placeholder="Start Date..."
+                type="text"
+                value={entry.educationStartDate || ""}
+                onChange={(e) => handleChange(index, e)}
+              />
+              <label htmlFor={`educationEndDate-${index}`}>
+                Date Graduated
+              </label>
+              <input
+                name="educationEndDate"
+                id={`educationEndDate-${index}`}
+                placeholder="Graduation date..."
+                type="text"
+                value={entry.educationEndDate || ""}
+                onChange={(e) => handleChange(index, e)}
+              />
+            </fieldset>
+          ))}
+          <button type="button" onClick={handleAddEntry}>
+            Add New Entry
+          </button>
           <button type="submit">Submit</button>
         </form>
       )}
