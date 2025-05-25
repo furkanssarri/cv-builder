@@ -5,8 +5,8 @@ import FormContainer from "./components/form/FormContainer";
 
 function App() {
   const [personalInfo, setPersonalInfo] = useState(null);
-  const [educationInfo, setEducationInfo] = useState(null);
-  const [workInfo, setWorkInfo] = useState(null);
+  const [educationInfo, setEducationInfo] = useState([]);
+  const [workInfo, setWorkInfo] = useState([]);
 
   return (
     <div className="App">

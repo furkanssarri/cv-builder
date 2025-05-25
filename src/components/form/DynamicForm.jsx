@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { handleStorage } from "../../utils/storage";
+import { storeItem } from "../../utils/storage";
 
 const DynamicForm = ({ fields, storageKey, onSubmitData }) => {
   const initialState = fields.reduce((acc, field) => {
@@ -12,8 +12,8 @@ const DynamicForm = ({ fields, storageKey, onSubmitData }) => {
   useEffect(() => {
     const stored = sessionStorage.getItem(storageKey);
     if (stored) {
-      setFormData(JSON.parse(stored));
-      // onSubmitData(JSON.parse(stored)); // preload output
+      // setFormData(JSON.parse(stored));
+      onSubmitData(JSON.parse(stored)); // Load array to Resume
     }
   }, [storageKey, onSubmitData]);
 
@@ -24,8 +24,10 @@ const DynamicForm = ({ fields, storageKey, onSubmitData }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleStorage(storageKey, formData);
-    onSubmitData({ ...formData });
+    const existingData = JSON.parse(sessionStorage.getItem(storageKey)) || [];
+    const updatedData = [...existingData, formData];
+    storeItem(storageKey, updatedData);
+    onSubmitData(updatedData);
     setFormData(initialState); // reset forms
   };
 

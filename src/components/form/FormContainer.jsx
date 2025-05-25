@@ -10,16 +10,25 @@ const FormContainer = ({ setPersonalInfo, setEducationInfo, setWorkInfo }) => {
   const [openSections, setOpenSections] = useState(new Set());
   const formSections = [
     {
+      id: 0,
       title: "Personal Info",
       fields: personalInfoFields,
       state: setPersonalInfo,
     },
     {
-      title: "Education Info",
+      id: 1,
+      title: "Education1 Info",
       fields: educationInfoFields,
       state: setEducationInfo,
     },
     {
+      id: 2,
+      title: "Education2 Info",
+      fields: educationInfoFields,
+      state: setEducationInfo,
+    },
+    {
+      id: 3,
       title: "Work Experience",
       fields: workExperienceFields,
       state: setWorkInfo,
