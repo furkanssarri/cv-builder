@@ -13,9 +13,10 @@ const DynamicForm = ({ fields, storageKey, onSubmitData }) => {
     const stored = sessionStorage.getItem(storageKey);
     if (stored) {
       // setFormData(JSON.parse(stored));
-      onSubmitData(JSON.parse(stored)); // Load array to Resume
+      // onSubmitData(JSON.parse(stored)); // Load array to Resume
+      setFormData(initialState);
     }
-  }, [storageKey, onSubmitData]);
+  }, [storageKey, initialState /* onSubmitData */]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

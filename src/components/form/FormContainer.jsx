@@ -22,12 +22,6 @@ const FormContainer = ({ setPersonalInfo, setEducationInfo, setWorkInfo }) => {
       state: setEducationInfo,
     },
     {
-      id: 2,
-      title: "Education2 Info",
-      fields: educationInfoFields,
-      state: setEducationInfo,
-    },
-    {
       id: 3,
       title: "Work Experience",
       fields: workExperienceFields,
