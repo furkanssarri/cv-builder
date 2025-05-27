@@ -17,7 +17,7 @@ const FormContainer = ({ setPersonalInfo, setEducationInfo, setWorkInfo }) => {
     },
     {
       id: 1,
-      title: "Education1 Info",
+      title: "Education Info",
       fields: educationInfoFields,
       state: setEducationInfo,
     },
