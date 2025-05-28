@@ -16,24 +16,6 @@ const DynamicForm = ({
   }, [fields]);
 
   const [formData, setFormData] = useState(initialState);
-
-  // useEffect(() => {
-  //   if (editingIndex) {
-  //     setFormData((prev) => {
-  //       return JSON.stringify(prev) !== JSON.stringify(editingIndex)
-  //         ? editingIndex
-  //         : prev;
-  //     });
-  //   } else {
-  //     setFormData((prev) => {
-  //       return JSON.stringify(prev) !== JSON.stringify(initialState)
-  //         ? initialState
-  //         : prev;
-  //     });
-  //   }
-  // }, [editingIndex, initialState]);
-
-  // ________________________________________
   useEffect(() => {
     if (editingIndex) {
       setFormData(editingIndex.data);
@@ -41,7 +23,6 @@ const DynamicForm = ({
       setFormData(initialState);
     }
   }, [editingIndex, initialState]);
-  // ________________________________________
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,6 +34,7 @@ const DynamicForm = ({
     const existingData = JSON.parse(sessionStorage.getItem(storageKey)) || [];
     let updatedData;
     if (editingIndex && typeof editingIndex.index === "number") {
+      // Editing
       updatedData = [...existingData];
       updatedData[editingIndex.index] = formData;
     } else {
@@ -60,7 +42,7 @@ const DynamicForm = ({
     }
     storeItem(storageKey, updatedData);
     onSubmitData(updatedData);
-    setFormData(initialState); // reset forms
+    setFormData(initialState);
     setEditingIndex({
       section: null,
       index: null,

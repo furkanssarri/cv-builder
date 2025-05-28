@@ -1,7 +1,13 @@
 import React from "react";
 import OutputSection from "./OutputSection";
 
-const Resume = ({ personalInfo, educationInfo, workInfo, handleEditEntry }) => {
+const Resume = ({
+  personalInfo,
+  educationInfo,
+  workInfo,
+  handleEditEntry,
+  handleDeleteEntry,
+}) => {
   return (
     <div className="container">
       <h2>Personal Info</h2>
@@ -10,6 +16,7 @@ const Resume = ({ personalInfo, educationInfo, workInfo, handleEditEntry }) => {
         educationInfo={educationInfo}
         workInfo={workInfo}
         handleEditEntry={handleEditEntry}
+        handleDeleteEntry={handleDeleteEntry}
       />
     </div>
   );

@@ -5,6 +5,7 @@ const OutputSection = ({
   educationInfo,
   workInfo,
   handleEditEntry,
+  handleDeleteEntry,
 }) => {
   return (
     <div className="display-info">
@@ -25,6 +26,12 @@ const OutputSection = ({
                 onClick={() => handleEditEntry("Personal Info", index)}
               >
                 Edit
+              </button>{" "}
+              <button
+                id="remove"
+                onClick={() => handleDeleteEntry("Personal Info", index)}
+              >
+                Remove
               </button>
             </div>
           ))}
@@ -55,7 +62,12 @@ const OutputSection = ({
               >
                 Edit
               </button>{" "}
-              <button id="remove">Remove</button>
+              <button
+                id="remove"
+                onClick={() => handleDeleteEntry("Education Info", index)}
+              >
+                Remove
+              </button>
             </div>
           ))}
         </>
@@ -89,7 +101,12 @@ const OutputSection = ({
               >
                 Edit
               </button>{" "}
-              <button id="remove">Remove</button>
+              <button
+                id="remove"
+                onClick={() => handleDeleteEntry("Work Info", index)}
+              >
+                Remove
+              </button>
             </div>
           ))}
         </>
