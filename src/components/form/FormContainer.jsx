@@ -28,7 +28,7 @@ const FormContainer = ({
       state: setEducationInfo,
     },
     {
-      id: 3,
+      id: 2,
       title: "Work Experience",
       fields: workExperienceFields,
       state: setWorkInfo,
@@ -44,12 +44,21 @@ const FormContainer = ({
     });
   }, []);
 
-  const toggleSection = (index) => {
-    setOpenSections((prev) => {
-      const newSet = new Set(prev);
-      newSet.has(index) ? newSet.delete(index) : newSet.add(index);
-      return newSet;
-    });
+  useEffect(() => {
+    if (editingIndex && editingIndex.section) {
+      toggleSection(editingIndex.section);
+    }
+  }, [editingIndex]);
+
+  const toggleSection = (title) => {
+    const index = formSections.findIndex((section) => section.title === title);
+    if (index !== -1) {
+      setOpenSections((prev) => {
+        const newSet = new Set(prev);
+        newSet.has(index) ? newSet.delete(index) : newSet.add(index);
+        return newSet;
+      });
+    }
   };
 
   return (
@@ -58,7 +67,7 @@ const FormContainer = ({
         <section key={index} className="form-section">
           <button
             className="accordion-toggle"
-            onClick={() => toggleSection(index)}
+            onClick={() => toggleSection(formSection.title)}
           >
             <h3>{formSection.title}</h3>
           </button>
@@ -71,6 +80,8 @@ const FormContainer = ({
                 editingIndex.section === formSection.title ? editingIndex : null
               }
               setEditingIndex={setEditingIndex}
+              toggleSection={toggleSection}
+              formSectionIndex={index}
             />
           )}
         </section>
