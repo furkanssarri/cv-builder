@@ -18,7 +18,7 @@ function App() {
     const targetArray =
       section === "Education Info"
         ? educationInfo
-        : section === "Work Info"
+        : section === "Work Experience"
         ? workInfo
         : section === "Personal Info"
         ? personalInfo
@@ -32,10 +32,10 @@ function App() {
       updatedData = educationInfo.filter((_, i) => i !== index);
       setEducationInfo(updatedData);
       storeItem("Education Info", JSON.stringify(updatedData));
-    } else if (section === "Work Info") {
+    } else if (section === "Work Experience") {
       updatedData = workInfo.filter((_, i) => i !== index);
       setWorkInfo(updatedData);
-      storeItem("Work Info", updatedData);
+      storeItem("Work Experience", updatedData);
     } else if (section === "Personal Info") {
       updatedData = personalInfo.filter((_, i) => i !== index);
       setPersonalInfo(updatedData);

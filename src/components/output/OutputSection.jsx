@@ -97,13 +97,13 @@ const OutputSection = ({
               <hr />
               <button
                 id="edit"
-                onClick={() => handleEditEntry("Work Info", index)}
+                onClick={() => handleEditEntry("Work Experience", index)}
               >
                 Edit
               </button>{" "}
               <button
                 id="remove"
-                onClick={() => handleDeleteEntry("Work Info", index)}
+                onClick={() => handleDeleteEntry("Work Experience", index)}
               >
                 Remove
               </button>
