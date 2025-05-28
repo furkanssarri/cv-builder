@@ -9,8 +9,7 @@ const Resume = ({
   handleDeleteEntry,
 }) => {
   return (
-    <div className="container">
-      <h2>Personal Info</h2>
+    <div className="wrapper">
       <OutputSection
         personalInfo={personalInfo}
         educationInfo={educationInfo}

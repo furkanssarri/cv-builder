@@ -47,23 +47,29 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Build CV</h1>
-      <FormContainer
-        setPersonalInfo={setPersonalInfo}
-        setEducationInfo={setEducationInfo}
-        setWorkInfo={setWorkInfo}
-        editingIndex={editingIndex}
-        setEditingIndex={setEditingIndex}
-      />
+      <div className="container">
+        <div id="form-area">
+          <h1>Build CV</h1>
+          <FormContainer
+            setPersonalInfo={setPersonalInfo}
+            setEducationInfo={setEducationInfo}
+            setWorkInfo={setWorkInfo}
+            editingIndex={editingIndex}
+            setEditingIndex={setEditingIndex}
+          />
+        </div>
 
-      <h1>CV Output</h1>
-      <Resume
-        personalInfo={personalInfo}
-        educationInfo={educationInfo}
-        workInfo={workInfo}
-        handleEditEntry={handleEditEntry}
-        handleDeleteEntry={handleDeleteEntry}
-      />
+        <div id="resume-area">
+          <h1>Resume</h1>
+          <Resume
+            personalInfo={personalInfo}
+            educationInfo={educationInfo}
+            workInfo={workInfo}
+            handleEditEntry={handleEditEntry}
+            handleDeleteEntry={handleDeleteEntry}
+          />
+        </div>
+      </div>
     </div>
   );
 }

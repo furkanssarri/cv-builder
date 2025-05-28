@@ -1,3 +1,25 @@
+.display-info {
+  border: 1px solid #ededed;
+  box-shadow: 0px 0px 15px 0px #00000069;
+  background-color: #fff;
+  padding: 2.5rem;
+}
+
+.display-info h2:first-child {
+  border: none;
+  text-align: center;
+}
+
+.display-info h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-align: left;
+  border-bottom: 1px solid #707070;
+}
+
 .personal-data-row {
   display: flex;
   flex-direction: row;
@@ -14,7 +36,6 @@
 .data-row {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: space-around;
 }
 
@@ -25,6 +46,10 @@
   padding: 0.5rem;
 }
 
-.entry:last-of-type {
-  border-bottom: 1px solid #000;
+.years {
+  align-self: flex-end;
+}
+
+.buttons {
+  align-self: end;
 }
