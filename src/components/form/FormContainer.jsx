@@ -11,6 +11,7 @@ const FormContainer = ({
   setEducationInfo,
   setWorkInfo,
   editingIndex,
+  setEditingIndex,
 }) => {
   const [openSections, setOpenSections] = useState(new Set());
   const formSections = [
@@ -43,10 +44,6 @@ const FormContainer = ({
     });
   }, []);
 
-  useEffect(() => {
-    console.log(editingIndex);
-  }, [editingIndex]);
-
   const toggleSection = (index) => {
     setOpenSections((prev) => {
       const newSet = new Set(prev);
@@ -54,6 +51,7 @@ const FormContainer = ({
       return newSet;
     });
   };
+
   return (
     <>
       {formSections.map((formSection, index) => (
@@ -70,10 +68,9 @@ const FormContainer = ({
               storageKey={formSection.title}
               onSubmitData={formSection.state}
               editingIndex={
-                editingIndex.section === formSection.title
-                  ? editingIndex.data
-                  : null
+                editingIndex.section === formSection.title ? editingIndex : null
               }
+              setEditingIndex={setEditingIndex}
             />
           )}
         </section>

@@ -9,6 +9,7 @@ function App() {
   const [workInfo, setWorkInfo] = useState([]);
   const [editingIndex, setEditingIndex] = useState({
     section: null,
+    index: null,
     data: null,
   });
 
@@ -21,8 +22,7 @@ function App() {
         : section === "Personal Info"
         ? personalInfo
         : null;
-    setEditingIndex({ section, data: targetArray[index] });
-    console.log(section, editingIndex);
+    setEditingIndex({ section, index, data: targetArray[index] });
   };
 
   return (
@@ -33,6 +33,7 @@ function App() {
         setEducationInfo={setEducationInfo}
         setWorkInfo={setWorkInfo}
         editingIndex={editingIndex}
+        setEditingIndex={setEditingIndex}
       />
 
       <h1>CV Output</h1>
