@@ -6,7 +6,12 @@ import {
   workExperienceFields,
 } from "../../assets/formConfig.js";
 
-const FormContainer = ({ setPersonalInfo, setEducationInfo, setWorkInfo }) => {
+const FormContainer = ({
+  setPersonalInfo,
+  setEducationInfo,
+  setWorkInfo,
+  editingIndex,
+}) => {
   const [openSections, setOpenSections] = useState(new Set());
   const formSections = [
     {
@@ -38,6 +43,10 @@ const FormContainer = ({ setPersonalInfo, setEducationInfo, setWorkInfo }) => {
     });
   }, []);
 
+  useEffect(() => {
+    console.log(editingIndex);
+  }, [editingIndex]);
+
   const toggleSection = (index) => {
     setOpenSections((prev) => {
       const newSet = new Set(prev);
@@ -60,6 +69,11 @@ const FormContainer = ({ setPersonalInfo, setEducationInfo, setWorkInfo }) => {
               fields={formSection.fields}
               storageKey={formSection.title}
               onSubmitData={formSection.state}
+              editingIndex={
+                editingIndex.section === formSection.title
+                  ? editingIndex.data
+                  : null
+              }
             />
           )}
         </section>

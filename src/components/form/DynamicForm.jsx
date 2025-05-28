@@ -1,22 +1,55 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { storeItem } from "../../utils/storage";
 
-const DynamicForm = ({ fields, storageKey, onSubmitData }) => {
-  const initialState = fields.reduce((acc, field) => {
-    acc[field.name] = "";
-    return acc;
-  }, {});
+const DynamicForm = ({ fields, storageKey, onSubmitData, editingIndex }) => {
+  const initialState = useMemo(() => {
+    return fields.reduce((acc, field) => {
+      acc[field.name] = "";
+      return acc;
+    }, {});
+  }, [fields]);
 
   const [formData, setFormData] = useState(initialState);
 
+  // useEffect(() => {
+  //   if (editingIndex) {
+  //     setFormData((prev) => {
+  //       return JSON.stringify(prev) !== JSON.stringify(editingIndex)
+  //         ? editingIndex
+  //         : prev;
+  //     });
+  //   } else {
+  //     setFormData((prev) => {
+  //       return JSON.stringify(prev) !== JSON.stringify(initialState)
+  //         ? initialState
+  //         : prev;
+  //     });
+  //   }
+  // }, [editingIndex, initialState]);
+
+  // ________________________________________
   useEffect(() => {
-    const stored = sessionStorage.getItem(storageKey);
-    if (stored) {
-      // setFormData(JSON.parse(stored));
-      // onSubmitData(JSON.parse(stored)); // Load array to Resume
-      // setFormData(initialState);
+    if (editingIndex) {
+      setFormData(editingIndex);
+    } else {
+      setFormData(initialState);
     }
-  }, [/*storageKey,*/ initialState /* onSubmitData */]);
+  }, [editingIndex, initialState]);
+  // ________________________________________
+
+  // useEffect(() => {
+  //   const stored = sessionStorage.getItem(storageKey);
+  //   if (stored) {
+  //     // setFormData(JSON.parse(stored));
+  //     // onSubmitData(JSON.parse(stored)); // Load array to Resume
+  //     // setFormData(initialState);
+  //   }
+  //   if (editingIndex) {
+  //     setFormData(editingIndex);
+  //   } else {
+  //     setFormData(initialState);
+  //   }
+  // }, [/*storageKey,*/ editingIndex, initialState /* onSubmitData */]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,6 +64,12 @@ const DynamicForm = ({ fields, storageKey, onSubmitData }) => {
     onSubmitData(updatedData);
     setFormData(initialState); // reset forms
   };
+
+  console.log(editingIndex);
+
+  // useEffect(() => {
+  //   console.log(editingIndex);
+  // }, [editingIndex]);
 
   return (
     <form onSubmit={handleSubmit}>

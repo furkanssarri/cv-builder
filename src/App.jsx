@@ -7,6 +7,23 @@ function App() {
   const [personalInfo, setPersonalInfo] = useState(null);
   const [educationInfo, setEducationInfo] = useState([]);
   const [workInfo, setWorkInfo] = useState([]);
+  const [editingIndex, setEditingIndex] = useState({
+    section: null,
+    data: null,
+  });
+
+  const handleEditEntry = (section, index) => {
+    const targetArray =
+      section === "Education Info"
+        ? educationInfo
+        : section === "Work Info"
+        ? workInfo
+        : section === "Personal Info"
+        ? personalInfo
+        : null;
+    setEditingIndex({ section, data: targetArray[index] });
+    console.log(section, editingIndex);
+  };
 
   return (
     <div className="App">
@@ -15,6 +32,7 @@ function App() {
         setPersonalInfo={setPersonalInfo}
         setEducationInfo={setEducationInfo}
         setWorkInfo={setWorkInfo}
+        editingIndex={editingIndex}
       />
 
       <h1>CV Output</h1>
@@ -22,6 +40,7 @@ function App() {
         personalInfo={personalInfo}
         educationInfo={educationInfo}
         workInfo={workInfo}
+        handleEditEntry={handleEditEntry}
       />
     </div>
   );

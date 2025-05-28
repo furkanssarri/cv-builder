@@ -1,24 +1,33 @@
 import React from "react";
 
-const OutputSection = ({ personalInfo, educationInfo, workInfo }) => {
+const OutputSection = ({
+  personalInfo,
+  educationInfo,
+  workInfo,
+  handleEditEntry,
+}) => {
   return (
     <div className="display-info">
-      {personalInfo && (
+      {Array.isArray(personalInfo) && personalInfo.length > 0 && (
         <>
-          <div className="personal-data-row">
-            <h4>{`${personalInfo[0].firstName} ${personalInfo[0].lastName}`}</h4>
-            <span className="contact-info">
-              <a href={`mailto:${personalInfo[0].email}`}>
-                {personalInfo[0].email}
-              </a>
-            </span>
-            <span className="contact-info">
-              <a href={`tel:${personalInfo[0].phone}`}>
-                {personalInfo[0].phone}
-              </a>
-            </span>
-          </div>
-          <hr />
+          <h2>Personal Info</h2>
+          {personalInfo.map((person, index) => (
+            <div className="personal-data-row" id="0" key={index}>
+              <h4>{`${person.firstName} ${person.lastName}`}</h4>
+              <span className="contact-info">
+                <a href={`mailto:${person.email}`}>{person.email}</a>
+              </span>
+              <span className="contact-info">
+                <a href={`tel:${person.phone}`}>{person.phone}</a>
+              </span>
+              <button
+                id="edit"
+                onClick={() => handleEditEntry("Personal Info", index)}
+              >
+                Edit
+              </button>
+            </div>
+          ))}
         </>
       )}
 
@@ -26,7 +35,7 @@ const OutputSection = ({ personalInfo, educationInfo, workInfo }) => {
         <>
           <h2>Education</h2>
           {educationInfo.map((edu, index) => (
-            <div className="data-row" key={index}>
+            <div className="data-row" id={index} key={index}>
               <div className="entry">
                 <strong>Institution: </strong>
                 {edu.institution}
@@ -40,6 +49,13 @@ const OutputSection = ({ personalInfo, educationInfo, workInfo }) => {
                 {edu.startYear} - {edu.endYear}
               </div>
               <hr />
+              <button
+                id="edit"
+                onClick={() => handleEditEntry("Education Info", index)}
+              >
+                Edit
+              </button>{" "}
+              <button id="remove">Remove</button>
             </div>
           ))}
         </>
@@ -49,7 +65,7 @@ const OutputSection = ({ personalInfo, educationInfo, workInfo }) => {
         <>
           <h2>Experience</h2>
           {workInfo.map((exp, index) => (
-            <div className="data-row" key={index}>
+            <div className="data-row" id={index} key={index}>
               <div className="entry">
                 <strong>Company: </strong>
                 {exp.company}
@@ -67,6 +83,13 @@ const OutputSection = ({ personalInfo, educationInfo, workInfo }) => {
                 {exp.startYear} - {exp.endYear}
               </div>
               <hr />
+              <button
+                id="edit"
+                onClick={() => handleEditEntry("Work Info", index)}
+              >
+                Edit
+              </button>{" "}
+              <button id="remove">Remove</button>
             </div>
           ))}
         </>
