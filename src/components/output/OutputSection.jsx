@@ -12,7 +12,6 @@ const OutputSection = ({
     <div className="display-info">
       {Array.isArray(personalInfo) && personalInfo.length > 0 && (
         <div className="personal-data-wrapper">
-          <h2>Personal Info</h2>
           {personalInfo.map((person, index) => (
             <Fragment key={person.id}>
               <div className="personal-data-row" id="0" key={index}>

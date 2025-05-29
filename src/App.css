@@ -9,6 +9,14 @@
   --gray-text-color: #636363;
 }
 
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -21,7 +29,7 @@
 
 #form-area {
   width: 30vw;
-  height: 95vh;
+  max-height: 95vh;
   position: sticky;
   top: 0;
   overflow-y: auto;
@@ -47,7 +55,6 @@
 
 #resume-area {
   width: 50vw;
-  align-self: flex-end;
 }
 
 .accordion-content {
@@ -79,6 +86,23 @@
   margin: 10px;
 }
 
+footer {
+  text-align: center;
+  padding: 1rem;
+}
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #333;
+  text-decoration: none;
+}
+
+.footer-icon {
+  font-size: 1.2rem;
+}
+
 @media screen and (max-width: 320px) {
   .container {
     width: 100%;
@@ -93,11 +117,31 @@
   .container {
     flex-direction: row;
     gap: 2rem;
-    /* max-width: min-content; */
+    max-width: min-content;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  #form-area {
+    width: 100%;
+    position: relative;
+  }
+  #form-area section {
+    max-width: 100%;
+    padding: 0;
   }
 
-  .form-wrapper {
-    min-width: 20vw;
+  #form-area section > button {
+    padding: 0;
+    font-size: 0.85rem;
+  }
+
+  #form-area section form {
+    margin: 15px 0;
+  }
+
+  #resume-area {
+    width: 90vw;
   }
 }
 
@@ -105,7 +149,4 @@
   .container {
     max-width: 80vw;
   }
-  /* .form-wrapper {
-    min-width: 20vw;
-  } */
 }

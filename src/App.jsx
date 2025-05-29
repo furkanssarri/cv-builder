@@ -3,6 +3,7 @@ import { useState } from "react";
 import Resume from "./components/output/Resume";
 import FormContainer from "./components/form/FormContainer";
 import { storeItem } from "./utils/storage";
+import Footer from "./components/Footer";
 
 function App() {
   const [personalInfo, setPersonalInfo] = useState(null);
@@ -72,6 +73,7 @@ function App() {
           />
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

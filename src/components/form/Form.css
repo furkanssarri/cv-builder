@@ -9,6 +9,7 @@ section {
 section button {
   background-color: #fff;
   border: none;
+  font-size: 1rem;
 }
 
 form {
