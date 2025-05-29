@@ -1,4 +1,5 @@
-import React from "react";
+import { Fragment } from "react";
+import { LuTrash2 } from "react-icons/lu";
 
 const OutputSection = ({
   personalInfo,
@@ -13,7 +14,7 @@ const OutputSection = ({
         <>
           <h2>Personal Info</h2>
           {personalInfo.map((person, index) => (
-            <>
+            <Fragment key={person.id}>
               <div className="personal-data-row" id="0" key={index}>
                 <p>{`${person.firstName} ${person.lastName}`}</p>
                 <span className="contact-info">
@@ -34,10 +35,10 @@ const OutputSection = ({
                   id="remove"
                   onClick={() => handleDeleteEntry("Personal Info", index)}
                 >
-                  Remove
+                  <LuTrash2 />
                 </button>
               </div>
-            </>
+            </Fragment>
           ))}
         </>
       )}
@@ -46,7 +47,7 @@ const OutputSection = ({
         <>
           <h2>Education</h2>
           {educationInfo.map((edu, index) => (
-            <div className="data-row" id={index} key={index}>
+            <div className="data-row" id={index} key={edu.id}>
               <div className="entry">{edu.degree}</div>
               <div className="entry">{edu.institution}</div>
               <div className="entry years">
@@ -76,7 +77,7 @@ const OutputSection = ({
         <>
           <h2>Experience</h2>
           {workInfo.map((exp, index) => (
-            <div className="data-row" id={index} key={index}>
+            <div className="data-row" id={index} key={exp.id}>
               <div className="entry">{exp.company}</div>
               <div className="entry">{exp.position}</div>
               <div className="entry">{exp.description}</div>

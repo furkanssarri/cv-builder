@@ -32,14 +32,16 @@ const DynamicForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     const existingData = JSON.parse(sessionStorage.getItem(storageKey)) || [];
-    let updatedData;
-    if (editingIndex && typeof editingIndex.index === "number") {
-      // Editing
-      updatedData = [...existingData];
-      updatedData[editingIndex.index] = formData;
-    } else {
-      updatedData = [...existingData, formData];
-    }
+    const newItem = {
+      ...formData,
+      id: crypto.randomUUID(),
+    };
+
+    const updatedData = editingIndex
+      ? existingData.map((item, i) =>
+          i === editingIndex.index ? { ...formData, id: item.id } : item,
+        )
+      : [...existingData, newItem];
     storeItem(storageKey, updatedData);
     onSubmitData(updatedData);
     setFormData(initialState);
