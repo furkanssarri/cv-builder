@@ -11,7 +11,7 @@ const OutputSection = ({
   return (
     <div className="display-info">
       {Array.isArray(personalInfo) && personalInfo.length > 0 && (
-        <>
+        <div className="personal-data-wrapper">
           <h2>Personal Info</h2>
           {personalInfo.map((person, index) => (
             <Fragment key={person.id}>
@@ -23,28 +23,28 @@ const OutputSection = ({
                 <span className="contact-info">
                   <a href={`tel:${person.phone}`}>{person.phone}</a>
                 </span>
-              </div>
-              <div className="buttons">
-                <button
-                  className="edit"
-                  onClick={() => handleEditEntry("Personal Info", index)}
-                >
-                  <LuSquarePen className="icon edit" />
-                </button>{" "}
-                <button
-                  className="remove"
-                  onClick={() => handleDeleteEntry("Personal Info", index)}
-                >
-                  <LuTrash2 className="icon remove" />
-                </button>
+                <div className="buttons">
+                  <button
+                    className="edit"
+                    onClick={() => handleEditEntry("Personal Info", index)}
+                  >
+                    <LuSquarePen className="icon edit" />
+                  </button>{" "}
+                  <button
+                    className="remove"
+                    onClick={() => handleDeleteEntry("Personal Info", index)}
+                  >
+                    <LuTrash2 className="icon remove" />
+                  </button>
+                </div>
               </div>
             </Fragment>
           ))}
-        </>
+        </div>
       )}
 
       {Array.isArray(educationInfo) && educationInfo.length > 0 && (
-        <>
+        <div className="education-data-wrapper">
           <h2>Education</h2>
           {educationInfo.map((edu, index) => (
             <div className="data-row" id={index} key={edu.id}>
@@ -70,11 +70,11 @@ const OutputSection = ({
               </div>
             </div>
           ))}
-        </>
+        </div>
       )}
 
       {Array.isArray(workInfo) && workInfo.length > 0 && (
-        <>
+        <div className="experience-data-wrapper">
           <h2>Experience</h2>
           {workInfo.map((exp, index) => (
             <div className="data-row" id={index} key={exp.id}>
@@ -101,7 +101,7 @@ const OutputSection = ({
               </div>
             </div>
           ))}
-        </>
+        </div>
       )}
     </div>
   );

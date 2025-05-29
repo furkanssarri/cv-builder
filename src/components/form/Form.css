@@ -11,9 +11,80 @@ section button {
   border: none;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100% !important;
+}
+
+form fieldset {
+  display: flex;
+  flex-direction: column;
+  border: none;
+  padding: 0;
+}
+
+form input {
+  margin: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 80%;
+}
+
+form textarea {
+  margin: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+form input:focus {
+  border-color: #4d90fe;
+  outline: none;
+  box-shadow: 0 0 0 2px #4d90fe33;
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+form button[type="submit"] {
+  align-self: center;
+  width: 120px;
+  padding: 0.75rem;
+  background: #4d90fe;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+  background: #357ae8;
+}
+
 .shown {
   display: block;
 }
 .hidden {
   display: none;
+}
+
+label {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  form {
+    padding: 1rem;
+  }
 }

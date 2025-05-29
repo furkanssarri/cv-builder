@@ -21,10 +21,21 @@
 
 #form-area {
   width: 30vw;
-  height: 70vh;
+  height: 95vh;
   position: sticky;
   top: 0;
+  overflow-y: auto;
 }
+
+/* 
+#form-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+#form-area::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
+} */
 
 #form-area section {
   background-color: #fff;
@@ -32,12 +43,6 @@
   padding: 1rem;
   box-shadow: 0px 0px 15px 0px #00000069;
   border-radius: 16px;
-}
-
-.form-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-self: flex-start;
 }
 
 #resume-area {
@@ -70,35 +75,6 @@
   font-size: 1.4rem;
 } */
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  width: 100% !important;
-}
-
-form fieldset {
-  display: flex;
-  flex-direction: column;
-  border: none;
-  padding: 0;
-}
-
-form input {
-  margin: 5px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-form textarea {
-  margin: 5px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
-}
-
 .btn {
   margin: 10px;
 }
@@ -126,9 +102,9 @@ form textarea {
 }
 
 @media screen and (min-width: 1440px) {
-  /* .container {
+  .container {
     max-width: 80vw;
-  } */
+  }
   /* .form-wrapper {
     min-width: 20vw;
   } */
