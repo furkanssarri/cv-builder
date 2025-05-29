@@ -49,14 +49,16 @@ function App() {
     <div className="App">
       <div className="container">
         <div id="form-area">
-          <h1>Build CV</h1>
-          <FormContainer
-            setPersonalInfo={setPersonalInfo}
-            setEducationInfo={setEducationInfo}
-            setWorkInfo={setWorkInfo}
-            editingIndex={editingIndex}
-            setEditingIndex={setEditingIndex}
-          />
+          <div className="form-wrapper">
+            <h1>Build CV</h1>
+            <FormContainer
+              setPersonalInfo={setPersonalInfo}
+              setEducationInfo={setEducationInfo}
+              setWorkInfo={setWorkInfo}
+              editingIndex={editingIndex}
+              setEditingIndex={setEditingIndex}
+            />
+          </div>
         </div>
 
         <div id="resume-area">

@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { LuTrash2 } from "react-icons/lu";
+import { LuTrash2, LuSquarePen } from "react-icons/lu";
 
 const OutputSection = ({
   personalInfo,
@@ -26,16 +26,16 @@ const OutputSection = ({
               </div>
               <div className="buttons">
                 <button
-                  id="edit"
+                  className="edit"
                   onClick={() => handleEditEntry("Personal Info", index)}
                 >
-                  Edit
+                  <LuSquarePen className="icon edit" />
                 </button>{" "}
                 <button
-                  id="remove"
+                  className="remove"
                   onClick={() => handleDeleteEntry("Personal Info", index)}
                 >
-                  <LuTrash2 />
+                  <LuTrash2 className="icon remove" />
                 </button>
               </div>
             </Fragment>
@@ -56,16 +56,16 @@ const OutputSection = ({
               <hr />
               <div className="buttons">
                 <button
-                  id="edit"
+                  className="edit"
                   onClick={() => handleEditEntry("Education Info", index)}
                 >
-                  Edit
+                  <LuSquarePen className="icon edit" />
                 </button>{" "}
                 <button
-                  id="remove"
+                  className="remove"
                   onClick={() => handleDeleteEntry("Education Info", index)}
                 >
-                  Remove
+                  <LuTrash2 className="icon remove" />
                 </button>
               </div>
             </div>
@@ -87,16 +87,16 @@ const OutputSection = ({
               <hr />
               <div className="buttons">
                 <button
-                  id="edit"
+                  className="edit"
                   onClick={() => handleEditEntry("Work Experience", index)}
                 >
-                  Edit
+                  <LuSquarePen className="icon edit" />
                 </button>{" "}
                 <button
-                  id="remove"
+                  className="remove"
                   onClick={() => handleDeleteEntry("Work Experience", index)}
                 >
-                  Remove
+                  <LuTrash2 className="icon" />
                 </button>
               </div>
             </div>
