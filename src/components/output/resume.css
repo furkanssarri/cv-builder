@@ -119,4 +119,7 @@ button.edit:hover {
   .education-data-wrapper {
     padding: 0 0.5rem;
   }
+  .entry {
+    text-align: left !important;
+  }
 }
