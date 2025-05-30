@@ -157,3 +157,9 @@ footer {
     height: 90vh;
   }
 }
+
+@media screen and (max-width: 480px) {
+  #resume-area {
+    height: 75vh;
+  }
+}

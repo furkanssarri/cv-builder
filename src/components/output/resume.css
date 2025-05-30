@@ -39,6 +39,10 @@ aside a:hover {
   text-decoration: underline;
 }
 
+aside p {
+  margin: 0.5rem;
+}
+
 main {
   /* flex: 1; */
   padding: 1.5rem;
