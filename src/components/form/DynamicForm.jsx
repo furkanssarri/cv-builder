@@ -7,7 +7,6 @@ const DynamicForm = ({
   onSubmitData,
   editingIndex,
   setEditingIndex,
-  formSectionIndex,
 }) => {
   const initialState = useMemo(() => {
     return fields.reduce((acc, field) => {

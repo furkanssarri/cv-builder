@@ -4,16 +4,31 @@ import Resume from "./components/output/Resume";
 import FormContainer from "./components/form/FormContainer";
 import { storeItem } from "./utils/storage";
 import Footer from "./components/Footer";
+import { defaults } from "./assets/defaultFormData";
 
 function App() {
   const [personalInfo, setPersonalInfo] = useState(null);
   const [educationInfo, setEducationInfo] = useState([]);
   const [workInfo, setWorkInfo] = useState([]);
+  const [showDefaults, setSetshowDefaults] = useState(false);
   const [editingIndex, setEditingIndex] = useState({
     section: null,
     index: null,
     data: null,
   });
+
+  const toggleDefaultData = () => {
+    if (!showDefaults) {
+      setPersonalInfo([defaults.personalInformation]);
+      setEducationInfo(defaults.educationInformation);
+      setWorkInfo(defaults.experienceInformation);
+    } else {
+      setPersonalInfo([]);
+      setEducationInfo([]);
+      setWorkInfo([]);
+    }
+    setSetshowDefaults((prev) => !prev);
+  };
 
   const handleEditEntry = (section, index) => {
     const targetArray =
@@ -48,6 +63,9 @@ function App() {
 
   return (
     <div className="App">
+      <button className="toggle-default-btn" onClick={toggleDefaultData}>
+        {showDefaults ? "Hide Sample CV" : "Load Sample CV"}
+      </button>
       <div className="container">
         <div id="form-area">
           <div className="form-wrapper">
