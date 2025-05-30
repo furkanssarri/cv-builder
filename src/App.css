@@ -121,6 +121,18 @@ footer {
   }
 }
 
+@media screen and (max-width: 1400px) {
+  #resume-area {
+    height: 70vh;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .container {
+    gap: 0;
+  }
+}
+
 @media screen and (max-width: 900px) {
   #form-area {
     width: 100%;
@@ -142,5 +154,6 @@ footer {
 
   #resume-area {
     width: 90vw;
+    height: 90vh;
   }
 }

@@ -31,7 +31,7 @@ aside a:hover {
 }
 
 main {
-  flex: 1;
+  /* flex: 1; */
   padding: 1.5rem;
 }
 
@@ -41,6 +41,9 @@ main {
   background-color: #fff;
   height: 125vh;
   display: flex;
+  transform: scale(0.9);
+  transform-origin: top left;
+  width: 100%;
 }
 
 .personal-data-wrapper .icon {
@@ -127,7 +130,60 @@ button.edit:hover {
   color: #fff;
 }
 
+@media screen and (max-width: 1780px) {
+  .resume-layout {
+    transform: scale(0.8);
+    width: 120%;
+  }
+  .photo {
+    transform: translate(0.8);
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .resume-layout {
+    transform: scale(0.7);
+    width: 142%;
+  }
+  .photo {
+    transform: scale(0.7);
+  }
+  .photo {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .resume-layout {
+    transform: scale(0.6);
+    width: 166%;
+    height: 150vh;
+  }
+  .photo {
+    transform: scale(0.5);
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .resume-layout {
+    width: 166%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .resume-layout {
+    width: 163%;
+  }
+}
+
 @media screen and (max-width: 480px) {
+  .resume-layout {
+    transform: scale(0.5);
+    width: 200%;
+  }
+  aside {
+    padding: 0.3rem;
+  }
   .personal-data-row {
     flex-direction: column;
   }
