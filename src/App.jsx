@@ -63,9 +63,6 @@ function App() {
 
   return (
     <div className="App">
-      <button className="toggle-default-btn" onClick={toggleDefaultData}>
-        {showDefaults ? "Hide Sample CV" : "Load Sample CV"}
-      </button>
       <div className="container">
         <div id="form-area">
           <div className="form-wrapper">
@@ -77,6 +74,9 @@ function App() {
               setEditingIndex={setEditingIndex}
             />
           </div>
+          <button className="toggle-default-btn" onClick={toggleDefaultData}>
+            {showDefaults ? "Hide Sample CV" : "Load Sample CV"}
+          </button>
         </div>
 
         <div id="resume-area">
