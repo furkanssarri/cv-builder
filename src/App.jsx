@@ -51,7 +51,6 @@ function App() {
       <div className="container">
         <div id="form-area">
           <div className="form-wrapper">
-            <h1>Build CV</h1>
             <FormContainer
               setPersonalInfo={setPersonalInfo}
               setEducationInfo={setEducationInfo}
@@ -63,7 +62,6 @@ function App() {
         </div>
 
         <div id="resume-area">
-          <h1>Resume</h1>
           <Resume
             personalInfo={personalInfo}
             educationInfo={educationInfo}

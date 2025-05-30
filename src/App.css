@@ -28,11 +28,12 @@
 }
 
 #form-area {
-  width: 30vw;
+  width: 50vw;
   max-height: 95vh;
   position: sticky;
   top: 0;
   overflow-y: auto;
+  display: none;
 }
 
 /* 
@@ -142,11 +143,5 @@ footer {
 
   #resume-area {
     width: 90vw;
-  }
-}
-
-@media screen and (min-width: 1440px) {
-  .container {
-    max-width: 80vw;
   }
 }
