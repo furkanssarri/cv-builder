@@ -1,5 +1,5 @@
-import React from "react";
-import OutputSection from "./OutputSection";
+import ResumeMain from "./ResumeMain";
+import ResumeAside from "./ResumeAside";
 
 const Resume = ({
   personalInfo,
@@ -9,13 +9,14 @@ const Resume = ({
   handleDeleteEntry,
 }) => {
   return (
-    <div className="wrapper">
-      <OutputSection
+    <div className="resume-layout">
+      <ResumeAside personalInfo={personalInfo} />
+      <ResumeMain
         personalInfo={personalInfo}
         educationInfo={educationInfo}
         workInfo={workInfo}
-        handleEditEntry={handleEditEntry}
-        handleDeleteEntry={handleDeleteEntry}
+        onEdit={handleEditEntry}
+        onDelete={handleDeleteEntry}
       />
     </div>
   );

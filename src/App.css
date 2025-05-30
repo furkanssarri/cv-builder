@@ -28,12 +28,11 @@
 }
 
 #form-area {
-  width: 50vw;
+  width: 45vw;
   max-height: 95vh;
   position: sticky;
   top: 0;
   overflow-y: auto;
-  display: none;
 }
 
 /* 
@@ -55,7 +54,7 @@
 }
 
 #resume-area {
-  width: 50vw;
+  width: 45vw;
 }
 
 .accordion-content {
