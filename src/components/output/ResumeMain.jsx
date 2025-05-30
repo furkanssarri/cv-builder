@@ -16,18 +16,12 @@ const ResumeMain = ({
   )
     return null;
 
-  const { firstName, lastName } = personalInfo[0];
+  const { firstName, lastName, title, about } = personalInfo[0];
   return (
     <main>
       <h1>{`${firstName} ${lastName}`}</h1>
-      <h2>Web Developer</h2>{" "}
-      {/* Will be converted to dynamic once the relevant form inputs are added. */}
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet accusamus
-        fugiat soluta assumenda perferendis voluptatibus enim unde repellat
-        animi nesciunt cum explicabo quasi nisi, exercitationem voluptatem
-        voluptatum perspiciatis, ut atque!
-      </p>
+      <h2>{title}</h2>
+      <p>{about}</p>
       {workInfo.length > 0 && (
         <>
           <SectionHeader title="Experience" />

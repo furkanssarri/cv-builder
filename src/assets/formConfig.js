@@ -5,11 +5,13 @@ export const personalInfoFields = [
   { name: "about", label: "About you", type: "textarea" },
   { name: "email", label: "Email", type: "email" },
   { name: "phone", label: "Phone", type: "tel" },
+  { name: "portfolio", label: "Portfolio Link", type: "text" },
+  { name: "shortAddress", label: "Short Address", type: "text" },
 ];
 
 export const educationInfoFields = [
   { name: "institution", label: "Institution", type: "text" },
-  { name: "degree", label: "Degree", type: "text" },
+  { name: "program", label: "Program", type: "text" },
   { name: "startYear", label: "Start Year", type: "text" },
   { name: "endYear", label: "End Year", type: "text" },
 ];

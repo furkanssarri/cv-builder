@@ -6,11 +6,11 @@
   max-width: 30vw;
 }
 
-#form-area section button {
+/* #form-area section button {
   background-color: #fff;
   border: none;
   font-size: 1rem;
-}
+} */
 
 form {
   display: flex;
