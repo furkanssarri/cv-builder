@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { storeItem } from "../../utils/storage";
 
 const DynamicForm = ({
@@ -7,6 +7,7 @@ const DynamicForm = ({
   onSubmitData,
   editingIndex,
   setEditingIndex,
+  formSectionIndex,
 }) => {
   const initialState = useMemo(() => {
     return fields.reduce((acc, field) => {
@@ -14,6 +15,8 @@ const DynamicForm = ({
       return acc;
     }, {});
   }, [fields]);
+
+  const firstInputRef = useRef(null);
 
   const [formData, setFormData] = useState(initialState);
   useEffect(() => {
@@ -23,6 +26,12 @@ const DynamicForm = ({
       setFormData(initialState);
     }
   }, [editingIndex, initialState]);
+
+  useEffect(() => {
+    if (firstInputRef.current) {
+      firstInputRef.current.focus();
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,11 +59,14 @@ const DynamicForm = ({
       index: null,
       data: null,
     });
+    if (firstInputRef.current) {
+      firstInputRef.current.focus();
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      {fields.map(({ name, label, type }) => (
+      {fields.map(({ name, label, type }, index) => (
         <div key={name}>
           <label htmlFor={name}>{label}</label>
           {type !== "textarea" && (
@@ -64,6 +76,7 @@ const DynamicForm = ({
               name={name}
               value={formData[name] || ""}
               onChange={handleChange}
+              ref={index === 0 ? firstInputRef : null}
             />
           )}
 
