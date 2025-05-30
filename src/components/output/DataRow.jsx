@@ -21,10 +21,10 @@ const DataRow = ({ data, index, section, onEdit, onDelete }) => {
         </div>
       )}
       <div className="buttons">
-        <button onClick={() => onEdit(section, index)}>
+        <button onClick={() => onEdit(section, index)} className="edit">
           <LuSquarePen className="icon" />
         </button>
-        <button onClick={() => onDelete(section, index)}>
+        <button onClick={() => onDelete(section, index)} className="remove">
           <LuTrash2 className="icon" />
         </button>
       </div>
