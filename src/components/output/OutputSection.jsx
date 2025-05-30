@@ -47,12 +47,13 @@ const OutputSection = ({
           <h2>Education</h2>
           {educationInfo.map((edu, index) => (
             <div className="data-row" id={index} key={edu.id}>
-              <div className="entry">{edu.degree}</div>
-              <div className="entry">{edu.institution}</div>
-              <div className="entry years">
+              <div className="entry-wrapper">
+                <div className="entry">{edu.degree}</div>
+                <div className="entry">{edu.institution}</div>
+              </div>
+              <div className="years">
                 {edu.startYear} - {edu.endYear}
               </div>
-              <hr />
               <div className="buttons">
                 <button
                   className="edit"
@@ -77,13 +78,14 @@ const OutputSection = ({
           <h2>Experience</h2>
           {workInfo.map((exp, index) => (
             <div className="data-row" id={index} key={exp.id}>
-              <div className="entry">{exp.company}</div>
-              <div className="entry">{exp.position}</div>
-              <div className="entry">{exp.description}</div>
-              <div className="entry years">
+              <div className="entry-wrapper">
+                <div className="entry">{exp.company}</div>
+                <div className="entry">{exp.position}</div>
+                <div className="entry">{exp.description}</div>
+              </div>
+              <div className="years">
                 {exp.startYear} - {exp.endYear}
               </div>
-              <hr />
               <div className="buttons">
                 <button
                   className="edit"

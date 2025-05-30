@@ -61,10 +61,16 @@
   margin-inline-end: 0px;
 }
 
+.entry-wrapper {
+  flex-grow: 1;
+}
+
 .data-row {
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
 }
 
 .entry {
@@ -74,9 +80,9 @@
   padding: 0.5rem;
 }
 
-.years {
+/* .years {
   align-self: flex-end;
-}
+} */
 
 .buttons {
   align-self: end;
@@ -98,4 +104,19 @@ button.remove:hover {
 button.edit:hover {
   background-color: #efcc75;
   color: #fff;
+}
+
+@media screen and (max-width: 480px) {
+  .personal-data-row {
+    flex-direction: column;
+  }
+  .contact-info {
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+  }
+  .education-data-wrapper {
+    padding: 0 0.5rem;
+  }
 }

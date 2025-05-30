@@ -1,8 +1,8 @@
 export const personalInfoFields = [
   { name: "firstName", label: "First Name", type: "text" },
   { name: "lastName", label: "Last Name", type: "text" },
-  { name: "email", label: "Email", type: "text" }, // Will change type: "email" in the future
-  { name: "phone", label: "Phone", type: "text" }, // Will change type: "tel" in the future
+  { name: "email", label: "Email", type: "email" },
+  { name: "phone", label: "Phone", type: "tel" },
 ];
 
 export const educationInfoFields = [
