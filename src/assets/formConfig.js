@@ -1,6 +1,8 @@
 export const personalInfoFields = [
   { name: "firstName", label: "First Name", type: "text" },
   { name: "lastName", label: "Last Name", type: "text" },
+  { name: "title", label: "Title", type: "text" },
+  { name: "about", label: "About you", type: "textarea" },
   { name: "email", label: "Email", type: "email" },
   { name: "phone", label: "Phone", type: "tel" },
 ];

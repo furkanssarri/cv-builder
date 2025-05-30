@@ -57,13 +57,26 @@ const DynamicForm = ({
       {fields.map(({ name, label, type }) => (
         <div key={name}>
           <label htmlFor={name}>{label}</label>
-          <input
-            type={type}
-            id={name}
-            name={name}
-            value={formData[name] || ""}
-            onChange={handleChange}
-          />
+          {type !== "textarea" && (
+            <input
+              type={type}
+              id={name}
+              name={name}
+              value={formData[name] || ""}
+              onChange={handleChange}
+            />
+          )}
+
+          {type === "textarea" && (
+            <textarea
+              rows="5"
+              cols="33"
+              id={name}
+              name={name}
+              value={formData[name] || ""}
+              onChange={handleChange}
+            />
+          )}
         </div>
       ))}
       <button type="submit">Submit</button>
