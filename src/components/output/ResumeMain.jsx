@@ -31,31 +31,35 @@ const ResumeMain = ({
       {workInfo.length > 0 && (
         <>
           <SectionHeader title="Experience" />
-          {workInfo.map((work, index) => (
-            <DataRow
-              key={work.id}
-              data={work}
-              index={index}
-              section="Work Experience"
-              onEdit={onEdit}
-              onDelete={onDelete}
-            />
-          ))}
+          <section className="data-section">
+            {workInfo.map((work, index) => (
+              <DataRow
+                key={work.id}
+                data={work}
+                index={index}
+                section="Work Experience"
+                onEdit={onEdit}
+                onDelete={onDelete}
+              />
+            ))}
+          </section>
         </>
       )}
       {educationInfo.length > 0 && (
         <>
           <SectionHeader title="Education" />
-          {educationInfo.map((edu, index) => (
-            <DataRow
-              key={edu.id}
-              data={edu}
-              index={index}
-              section="Education Info"
-              onEdit={onEdit}
-              onDelete={onDelete}
-            />
-          ))}
+          <section className="data-section">
+            {educationInfo.map((edu, index) => (
+              <DataRow
+                key={edu.id}
+                data={edu}
+                index={index}
+                section="Education Info"
+                onEdit={onEdit}
+                onDelete={onDelete}
+              />
+            ))}
+          </section>
         </>
       )}
     </main>
