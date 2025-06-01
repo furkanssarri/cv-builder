@@ -6,6 +6,16 @@ const ResumeAside = ({ personalInfo }) => {
   if (!Array.isArray(personalInfo) || personalInfo.length === 0) return null;
 
   const { email, phone, portfolio, shortAddress } = personalInfo[0]; // only one entry
+
+  if (
+    email === "undefined" ||
+    phone === "undefined" ||
+    portfolio === "undefined" ||
+    shortAddress === "undefined"
+  ) {
+    return null;
+  }
+
   return (
     <aside>
       <div className="photo">
@@ -16,16 +26,17 @@ const ResumeAside = ({ personalInfo }) => {
         />
       </div>
       <div className="contact-info">
-        <a href={`mailto:${email}`}>
-          {" "}
-          <LuMail className="contact-icon" /> {email}
-        </a>
-        <a href={`tel:${phone}`}>
-          <LuPhone className="contact-icon" /> {phone}
-        </a>
-        <p>
-          <FaMapMarkerAlt className="contact-icon" /> {shortAddress}
-        </p>
+        {email && (
+          <a href={`mailto:${email}`}>
+            {" "}
+            <LuMail className="contact-icon" /> {email}
+          </a>
+        )}
+        {phone && (
+          <a href={`tel:${phone}`}>
+            <LuPhone className="contact-icon" /> {phone}
+          </a>
+        )}
         {portfolio && (
           <a
             href={`https://www.${portfolio}`}
@@ -34,6 +45,11 @@ const ResumeAside = ({ personalInfo }) => {
           >
             <FaGithub className="contact-icon" /> {portfolio}
           </a>
+        )}
+        {shortAddress && (
+          <p>
+            <FaMapMarkerAlt className="contact-icon" /> {shortAddress}
+          </p>
         )}
       </div>
       {/* other sections will appear here in the future */}

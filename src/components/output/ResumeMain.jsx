@@ -17,11 +17,17 @@ const ResumeMain = ({
     return null;
 
   const { firstName, lastName, title, about } = personalInfo[0];
+
+  if (firstName === "undefined" || lastName === "undefined") {
+    return null;
+  }
+
   return (
     <main>
-      <h1>{`${firstName} ${lastName}`}</h1>
-      <h2>{title}</h2>
-      <p>{about}</p>
+      <h1>
+        {firstName} {lastName}
+      </h1>
+      <h2>{title}</h2> <p>{about}</p>
       {workInfo.length > 0 && (
         <>
           <SectionHeader title="Experience" />
