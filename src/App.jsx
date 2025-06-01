@@ -17,6 +17,12 @@ function App() {
     data: null,
   });
 
+  const [liveFormData, setLiveFormData] = useState({
+    personalInfo: {},
+    educationInfo: [],
+    workInfo: [],
+  });
+
   const toggleDefaultData = () => {
     if (!showDefaults) {
       setPersonalInfo([defaults.personalInformation]);
@@ -72,6 +78,8 @@ function App() {
               setWorkInfo={setWorkInfo}
               editingIndex={editingIndex}
               setEditingIndex={setEditingIndex}
+              liveFormData={liveFormData}
+              setLiveFormData={setLiveFormData}
             />
           </div>
           <button className="toggle-default-btn" onClick={toggleDefaultData}>
@@ -81,9 +89,11 @@ function App() {
 
         <div id="resume-area">
           <Resume
-            personalInfo={personalInfo}
-            educationInfo={educationInfo}
-            workInfo={workInfo}
+            personalInfo={
+              liveFormData.personalInfo ? [liveFormData.personalInfo] : []
+            }
+            educationInfo={liveFormData.educationInfo}
+            workInfo={liveFormData.workInfo}
             handleEditEntry={handleEditEntry}
             handleDeleteEntry={handleDeleteEntry}
           />

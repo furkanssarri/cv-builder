@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { storeItem } from "../../utils/storage";
 
 const DynamicForm = ({
@@ -7,6 +7,8 @@ const DynamicForm = ({
   onSubmitData,
   editingIndex,
   setEditingIndex,
+  formData,
+  setFormData,
 }) => {
   const initialState = useMemo(() => {
     return fields.reduce((acc, field) => {
@@ -17,14 +19,14 @@ const DynamicForm = ({
 
   const firstInputRef = useRef(null);
 
-  const [formData, setFormData] = useState(initialState);
-  useEffect(() => {
-    if (editingIndex) {
-      setFormData(editingIndex.data);
-    } else {
-      setFormData(initialState);
-    }
-  }, [editingIndex, initialState]);
+  // const [formData, setFormData] = useState(initialState);
+  // useEffect(() => {
+  //   if (editingIndex) {
+  //     setFormData(editingIndex.data);
+  //   } else {
+  //     setFormData(initialState);
+  //   }
+  // }, [editingIndex, initialState]);
 
   useEffect(() => {
     if (firstInputRef.current) {
@@ -38,13 +40,15 @@ const DynamicForm = ({
     if (type === "file") {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormData((prev) => ({ ...prev, [name]: reader.result }));
+        // setFormData((prev) => ({ ...prev, [name]: reader.result }));
+        setFormData({ ...formData, [name]: reader.result });
       };
       if (files && files[0]) {
         reader.readAsDataURL(files[0]); // encodes image to base64 string
       }
     } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
+      // setFormData((prev) => ({ ...prev, [name]: value }));
+      setFormData({ ...formData, [name]: value });
     }
   };
 

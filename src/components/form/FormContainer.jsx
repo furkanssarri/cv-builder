@@ -12,23 +12,28 @@ const FormContainer = ({
   setWorkInfo,
   editingIndex,
   setEditingIndex,
+  liveFormData,
+  setLiveFormData,
 }) => {
   const [openSections, setOpenSections] = useState(new Set());
   const formSections = [
     {
       id: 0,
+      sectionKey: "personalInfo",
       title: "Personal Info",
       fields: personalInfoFields,
       state: setPersonalInfo,
     },
     {
       id: 1,
+      sectionKey: "workInfo",
       title: "Experience",
       fields: workExperienceFields,
       state: setWorkInfo,
     },
     {
       id: 2,
+      sectionKey: "educationInfo",
       title: "Education",
       fields: educationInfoFields,
       state: setEducationInfo,
@@ -82,6 +87,13 @@ const FormContainer = ({
               setEditingIndex={setEditingIndex}
               toggleSection={toggleSection}
               formSectionIndex={index}
+              formData={liveFormData[formSection.sectionKey]}
+              setFormData={(newData) =>
+                setLiveFormData((prev) => ({
+                  ...prev,
+                  [formSection.sectionKey]: newData,
+                }))
+              }
             />
           )}
         </section>
