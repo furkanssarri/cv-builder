@@ -21,12 +21,17 @@ const DynamicForm = ({
 
   // const [formData, setFormData] = useState(initialState);
   useEffect(() => {
-    if (editingIndex) {
+    const normalizedSection = editingIndex?.section
+      ?.toLowerCase()
+      .replace(/\s+/g, "");
+    const normalizedStorageKey = storageKey.toLowerCase().replace(/\s+/g, "");
+
+    if (normalizedSection === normalizedStorageKey) {
       setFormData(editingIndex.data);
-    } else {
+    } else if (!editingIndex?.section) {
       setFormData(initialState);
     }
-  }, [editingIndex, initialState]);
+  }, [editingIndex, initialState, storageKey]);
 
   useEffect(() => {
     if (firstInputRef.current) {

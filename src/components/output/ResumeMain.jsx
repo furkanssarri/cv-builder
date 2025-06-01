@@ -37,7 +37,7 @@ const ResumeMain = ({
                 key={work.id}
                 data={work}
                 index={index}
-                section="Work Experience"
+                section="Experience"
                 onEdit={onEdit}
                 onDelete={onDelete}
               />
@@ -54,7 +54,7 @@ const ResumeMain = ({
                 key={edu.id}
                 data={edu}
                 index={index}
-                section="Education Info"
+                section="Education"
                 onEdit={onEdit}
                 onDelete={onDelete}
               />

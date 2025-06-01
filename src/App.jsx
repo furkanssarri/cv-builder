@@ -43,9 +43,9 @@ function App() {
 
   const handleEditEntry = (section, index) => {
     const targetArray =
-      section === "Education Info"
+      section === "Education"
         ? educationInfo
-        : section === "Work Experience"
+        : section === "Experience"
         ? workInfo
         : section === "Personal Info"
         ? personalInfo
@@ -55,14 +55,14 @@ function App() {
 
   const handleDeleteEntry = (section, index) => {
     let updatedData;
-    if (section === "Education Info") {
+    if (section === "Education") {
       updatedData = educationInfo.filter((_, i) => i !== index);
       setEducationInfo(updatedData);
-      storeItem("Education Info", JSON.stringify(updatedData));
-    } else if (section === "Work Experience") {
+      storeItem("Education", JSON.stringify(updatedData));
+    } else if (section === "Experience") {
       updatedData = workInfo.filter((_, i) => i !== index);
       setWorkInfo(updatedData);
-      storeItem("Work Experience", updatedData);
+      storeItem("Experience", updatedData);
     } else if (section === "Personal Info") {
       updatedData = personalInfo.filter((_, i) => i !== index);
       setPersonalInfo(updatedData);
