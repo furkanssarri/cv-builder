@@ -2,7 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import Resume from "./components/output/Resume";
 import FormContainer from "./components/form/FormContainer";
-import { storeItem } from "./utils/storage";
+import { storeItem, getItem } from "./utils/storage";
 import Footer from "./components/Footer";
 import { defaults } from "./assets/defaultFormData";
 // import normalizeEntry from "./utils/entryNormalizer";
@@ -30,9 +30,9 @@ function App() {
       setEducationInfo(defaults.educationInformation);
       setWorkInfo(defaults.experienceInformation);
     } else {
-      setPersonalInfo([]);
-      setEducationInfo([]);
-      setWorkInfo([]);
+      setPersonalInfo(getItem("Personal Info"));
+      setEducationInfo(getItem("Education"));
+      setWorkInfo(getItem("Experience"));
     }
 
     setSetshowDefaults((prev) => !prev);
