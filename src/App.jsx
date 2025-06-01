@@ -5,7 +5,7 @@ import FormContainer from "./components/form/FormContainer";
 import { storeItem } from "./utils/storage";
 import Footer from "./components/Footer";
 import { defaults } from "./assets/defaultFormData";
-import normalizeEntry from "./utils/entryNormalizer";
+// import normalizeEntry from "./utils/entryNormalizer";
 
 function App() {
   const [personalInfo, setPersonalInfo] = useState(null);
@@ -72,6 +72,16 @@ function App() {
     setEditingIndex({ section: null, index: null, data: null });
   };
 
+  function mergeWithLive(savedArray, liveDraft) {
+    if (!liveDraft || Object.keys(liveDraft).length === 0) return savedArray;
+    return [...savedArray, { ...liveDraft, id: "live-preview" }];
+  }
+
+  function mergeSingleWithLive(savedArray, liveDraft) {
+    if (!liveDraft || Object.keys(liveDraft).length === 0) return savedArray;
+    return [liveDraft]; // personalInfo is always one entry
+  }
+
   return (
     <div className="App">
       <div className="container">
@@ -94,9 +104,15 @@ function App() {
 
         <div id="resume-area">
           <Resume
-            personalInfo={normalizeEntry(liveFormData.personalInfo)}
-            educationInfo={normalizeEntry(liveFormData.educationInfo)}
-            workInfo={normalizeEntry(liveFormData.workInfo)}
+            personalInfo={mergeSingleWithLive(
+              personalInfo,
+              liveFormData.personalInfo,
+            )}
+            educationInfo={mergeWithLive(
+              educationInfo,
+              liveFormData.educationInfo,
+            )}
+            workInfo={mergeWithLive(workInfo, liveFormData.workInfo)}
             handleEditEntry={handleEditEntry}
             handleDeleteEntry={handleDeleteEntry}
           />

@@ -20,13 +20,13 @@ const DynamicForm = ({
   const firstInputRef = useRef(null);
 
   // const [formData, setFormData] = useState(initialState);
-  // useEffect(() => {
-  //   if (editingIndex) {
-  //     setFormData(editingIndex.data);
-  //   } else {
-  //     setFormData(initialState);
-  //   }
-  // }, [editingIndex, initialState]);
+  useEffect(() => {
+    if (editingIndex) {
+      setFormData(editingIndex.data);
+    } else {
+      setFormData(initialState);
+    }
+  }, [editingIndex, initialState]);
 
   useEffect(() => {
     if (firstInputRef.current) {
@@ -67,7 +67,10 @@ const DynamicForm = ({
       : [...existingData, newItem];
     storeItem(storageKey, updatedData);
     onSubmitData(updatedData);
-    setFormData(initialState);
+    setFormData((prev) => ({
+      ...prev,
+      [fields.title]: fields.title === "personalInfo" ? {} : [],
+    }));
     setEditingIndex({
       section: null,
       index: null,
