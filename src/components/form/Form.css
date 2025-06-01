@@ -12,6 +12,10 @@
   font-size: 1rem;
 } */
 
+.accordion-toggle h3 {
+  margin: 0;
+}
+
 form {
   display: flex;
   flex-direction: column;
