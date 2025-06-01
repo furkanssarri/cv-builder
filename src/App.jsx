@@ -69,13 +69,23 @@ function App() {
     setEditingIndex({ section: null, index: null, data: null });
   };
 
-  function mergeWithLive(savedArray, liveDraft) {
-    if (!liveDraft || Object.keys(liveDraft).length === 0) return savedArray;
+  function mergeWithLive(savedArray, liveDraft, title) {
+    if (
+      editingIndex.section === title ||
+      !liveDraft ||
+      Object.keys(liveDraft).length === 0
+    )
+      return savedArray; // Don't merge live data
     return [...savedArray, { ...liveDraft, id: "live-preview" }];
   }
 
-  function mergeSingleWithLive(savedArray, liveDraft) {
-    if (!liveDraft || Object.keys(liveDraft).length === 0) return savedArray;
+  function mergeSingleWithLive(savedArray, liveDraft, title) {
+    if (
+      editingIndex.section === title ||
+      !liveDraft ||
+      Object.keys(liveDraft).length === 0
+    )
+      return savedArray;
     return [liveDraft]; // personalInfo is always one entry
   }
 
@@ -104,12 +114,18 @@ function App() {
             personalInfo={mergeSingleWithLive(
               personalInfo,
               liveFormData.personalInfo,
+              "Personal Info",
             )}
             educationInfo={mergeWithLive(
               educationInfo,
               liveFormData.educationInfo,
+              "Education",
             )}
-            workInfo={mergeWithLive(workInfo, liveFormData.workInfo)}
+            workInfo={mergeWithLive(
+              workInfo,
+              liveFormData.workInfo,
+              "Experience",
+            )}
             handleEditEntry={handleEditEntry}
             handleDeleteEntry={handleDeleteEntry}
           />

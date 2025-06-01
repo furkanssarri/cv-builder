@@ -21,12 +21,7 @@ const DynamicForm = ({
 
   // const [formData, setFormData] = useState(initialState);
   useEffect(() => {
-    const normalizedSection = editingIndex?.section
-      ?.toLowerCase()
-      .replace(/\s+/g, "");
-    const normalizedStorageKey = storageKey.toLowerCase().replace(/\s+/g, "");
-
-    if (normalizedSection === normalizedStorageKey) {
+    if (editingIndex?.section === storageKey) {
       setFormData(editingIndex.data);
     } else if (!editingIndex?.section) {
       setFormData(initialState);
