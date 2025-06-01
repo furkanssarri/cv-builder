@@ -23,15 +23,15 @@ const FormContainer = ({
     },
     {
       id: 1,
-      title: "Education Info",
-      fields: educationInfoFields,
-      state: setEducationInfo,
+      title: "Experience",
+      fields: workExperienceFields,
+      state: setWorkInfo,
     },
     {
       id: 2,
-      title: "Work Experience",
-      fields: workExperienceFields,
-      state: setWorkInfo,
+      title: "Education",
+      fields: educationInfoFields,
+      state: setEducationInfo,
     },
   ];
 
