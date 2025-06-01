@@ -5,6 +5,7 @@ import FormContainer from "./components/form/FormContainer";
 import { storeItem } from "./utils/storage";
 import Footer from "./components/Footer";
 import { defaults } from "./assets/defaultFormData";
+import normalizeEntry from "./utils/entryNormalizer";
 
 function App() {
   const [personalInfo, setPersonalInfo] = useState(null);
@@ -89,11 +90,9 @@ function App() {
 
         <div id="resume-area">
           <Resume
-            personalInfo={
-              liveFormData.personalInfo ? [liveFormData.personalInfo] : []
-            }
-            educationInfo={liveFormData.educationInfo}
-            workInfo={liveFormData.workInfo}
+            personalInfo={normalizeEntry(liveFormData.personalInfo)}
+            educationInfo={normalizeEntry(liveFormData.educationInfo)}
+            workInfo={normalizeEntry(liveFormData.workInfo)}
             handleEditEntry={handleEditEntry}
             handleDeleteEntry={handleDeleteEntry}
           />
