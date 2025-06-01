@@ -155,7 +155,7 @@ button.edit:hover {
     width: 120%;
   }
   .photo {
-    transform: translate(0.8);
+    transform: scale(0.8);
   }
 }
 
@@ -163,9 +163,6 @@ button.edit:hover {
   .resume-layout {
     transform: scale(0.7);
     width: 142%;
-  }
-  .photo {
-    transform: scale(0.7);
   }
   .photo {
     margin: 0;
@@ -179,7 +176,7 @@ button.edit:hover {
     height: 150vh;
   }
   .photo {
-    transform: scale(0.5);
+    /* transform: scale(0.5); */
   }
 }
 
