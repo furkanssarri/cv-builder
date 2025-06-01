@@ -33,8 +33,19 @@ const DynamicForm = ({
   }, []);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, files } = e.target;
+
+    if (type === "file") {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prev) => ({ ...prev, [name]: reader.result }));
+      };
+      if (files && files[0]) {
+        reader.readAsDataURL(files[0]); // encodes image to base64 string
+      }
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = (e) => {
@@ -65,10 +76,10 @@ const DynamicForm = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      {fields.map(({ name, label, type }, index) => (
+      {fields.map(({ name, label, type, accept }, index) => (
         <div key={name}>
           <label htmlFor={name}>{label}</label>
-          {type !== "textarea" && (
+          {type !== "textarea" && type !== "file" && (
             <input
               type={type}
               id={name}
@@ -86,6 +97,16 @@ const DynamicForm = ({
               id={name}
               name={name}
               value={formData[name] || ""}
+              onChange={handleChange}
+            />
+          )}
+
+          {type === "file" && (
+            <input
+              type={type}
+              id={name}
+              name={name}
+              accept={accept}
               onChange={handleChange}
             />
           )}

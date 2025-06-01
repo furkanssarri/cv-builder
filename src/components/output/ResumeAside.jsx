@@ -9,7 +9,11 @@ const ResumeAside = ({ personalInfo }) => {
   return (
     <aside>
       <div className="photo">
-        <img src={blankPP} alt="Profile-Photo" className="profile-photo" />
+        <img
+          src={personalInfo[0].photo || blankPP}
+          alt="Profile-Photo"
+          className="profile-photo"
+        />
       </div>
       <div className="contact-info">
         <a href={`mailto:${email}`}>

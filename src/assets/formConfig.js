@@ -7,19 +7,20 @@ export const personalInfoFields = [
   { name: "phone", label: "Phone", type: "tel" },
   { name: "portfolio", label: "Portfolio Link", type: "text" },
   { name: "shortAddress", label: "Short Address", type: "text" },
-];
-
-export const educationInfoFields = [
-  { name: "institution", label: "Institution", type: "text" },
-  { name: "program", label: "Program", type: "text" },
-  { name: "startYear", label: "Start Year", type: "text" },
-  { name: "endYear", label: "End Year", type: "text" },
+  { name: "photo", label: "Upload Photo", type: "file", accept: "image/*" },
 ];
 
 export const workExperienceFields = [
   { name: "company", label: "Company Name", type: "text" },
   { name: "position", label: "Position", type: "text" },
   { name: "description", label: "Job Description", type: "text" },
+  { name: "startYear", label: "Start Year", type: "text" },
+  { name: "endYear", label: "End Year", type: "text" },
+];
+
+export const educationInfoFields = [
+  { name: "institution", label: "Institution", type: "text" },
+  { name: "program", label: "Program", type: "text" },
   { name: "startYear", label: "Start Year", type: "text" },
   { name: "endYear", label: "End Year", type: "text" },
 ];
