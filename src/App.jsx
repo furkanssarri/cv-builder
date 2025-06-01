@@ -26,18 +26,15 @@ function App() {
 
   const toggleDefaultData = () => {
     if (!showDefaults) {
-      setLiveFormData({
-        personalInfo: defaults.personalInformation,
-        educationInfo: defaults.educationInformation,
-        workInfo: defaults.experienceInformation,
-      });
+      setPersonalInfo([defaults.personalInformation]);
+      setEducationInfo(defaults.educationInformation);
+      setWorkInfo(defaults.experienceInformation);
     } else {
-      setLiveFormData({
-        personalInfo: {},
-        educationInfo: [],
-        workInfo: [],
-      });
+      setPersonalInfo([]);
+      setEducationInfo([]);
+      setWorkInfo([]);
     }
+
     setSetshowDefaults((prev) => !prev);
   };
 
