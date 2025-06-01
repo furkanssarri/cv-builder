@@ -1,5 +1,6 @@
 export const defaults = {
   personalInformation: {
+    id: crypto.randomUUID(),
     firstName: "John",
     lastName: "Doe",
     title: "Fullstack Web Dev",
@@ -12,6 +13,7 @@ export const defaults = {
   },
   experienceInformation: [
     {
+      id: crypto.randomUUID(),
       company: "Xyz Software Solutions",
       position: "Intern",
       description: "orem ipsum dolor, sit amet consecteur adipisicing elit.",
@@ -19,6 +21,7 @@ export const defaults = {
       endYear: "2016",
     },
     {
+      id: crypto.randomUUID(),
       company: "Abc Corp.",
       position: "Frontend Web Dev",
       description: "Lorem ipsum dolor, sit amet consecteur adipisicing elit.",
@@ -26,6 +29,7 @@ export const defaults = {
       endYear: "2019",
     },
     {
+      id: crypto.randomUUID(),
       company: "Fitbit Agency",
       position: "Fullstack Developer",
       description: "Lorem ipsum dolor, sit amet consecteur adipisicing elit.",
@@ -35,12 +39,14 @@ export const defaults = {
   ],
   educationInformation: [
     {
+      id: crypto.randomUUID(),
       institution: "Harvard University",
       program: "Linguistics",
       startYear: "2012",
       endYear: "2016",
     },
     {
+      id: crypto.randomUUID(),
       institution: "MIT",
       program: "Software Engineering",
       startYear: "2017",
