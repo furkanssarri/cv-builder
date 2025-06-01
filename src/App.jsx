@@ -5,6 +5,7 @@ import FormContainer from "./components/form/FormContainer";
 import { storeItem } from "./utils/storage";
 import Footer from "./components/Footer";
 import { defaults } from "./assets/defaultFormData";
+// import normalizeEntry from "./utils/entryNormalizer";
 
 function App() {
   const [personalInfo, setPersonalInfo] = useState(null);
@@ -17,24 +18,34 @@ function App() {
     data: null,
   });
 
+  const [liveFormData, setLiveFormData] = useState({
+    personalInfo: {},
+    educationInfo: [],
+    workInfo: [],
+  });
+
   const toggleDefaultData = () => {
     if (!showDefaults) {
-      setPersonalInfo([defaults.personalInformation]);
-      setEducationInfo(defaults.educationInformation);
-      setWorkInfo(defaults.experienceInformation);
+      setLiveFormData({
+        personalInfo: defaults.personalInformation,
+        educationInfo: defaults.educationInformation,
+        workInfo: defaults.experienceInformation,
+      });
     } else {
-      setPersonalInfo([]);
-      setEducationInfo([]);
-      setWorkInfo([]);
+      setLiveFormData({
+        personalInfo: {},
+        educationInfo: [],
+        workInfo: [],
+      });
     }
     setSetshowDefaults((prev) => !prev);
   };
 
   const handleEditEntry = (section, index) => {
     const targetArray =
-      section === "Education Info"
+      section === "Education"
         ? educationInfo
-        : section === "Work Experience"
+        : section === "Experience"
         ? workInfo
         : section === "Personal Info"
         ? personalInfo
@@ -44,14 +55,14 @@ function App() {
 
   const handleDeleteEntry = (section, index) => {
     let updatedData;
-    if (section === "Education Info") {
+    if (section === "Education") {
       updatedData = educationInfo.filter((_, i) => i !== index);
       setEducationInfo(updatedData);
-      storeItem("Education Info", JSON.stringify(updatedData));
-    } else if (section === "Work Experience") {
+      storeItem("Education", JSON.stringify(updatedData));
+    } else if (section === "Experience") {
       updatedData = workInfo.filter((_, i) => i !== index);
       setWorkInfo(updatedData);
-      storeItem("Work Experience", updatedData);
+      storeItem("Experience", updatedData);
     } else if (section === "Personal Info") {
       updatedData = personalInfo.filter((_, i) => i !== index);
       setPersonalInfo(updatedData);
@@ -60,6 +71,16 @@ function App() {
     storeItem(section, updatedData);
     setEditingIndex({ section: null, index: null, data: null });
   };
+
+  function mergeWithLive(savedArray, liveDraft) {
+    if (!liveDraft || Object.keys(liveDraft).length === 0) return savedArray;
+    return [...savedArray, { ...liveDraft, id: "live-preview" }];
+  }
+
+  function mergeSingleWithLive(savedArray, liveDraft) {
+    if (!liveDraft || Object.keys(liveDraft).length === 0) return savedArray;
+    return [liveDraft]; // personalInfo is always one entry
+  }
 
   return (
     <div className="App">
@@ -72,6 +93,8 @@ function App() {
               setWorkInfo={setWorkInfo}
               editingIndex={editingIndex}
               setEditingIndex={setEditingIndex}
+              liveFormData={liveFormData}
+              setLiveFormData={setLiveFormData}
             />
           </div>
           <button className="toggle-default-btn" onClick={toggleDefaultData}>
@@ -81,9 +104,15 @@ function App() {
 
         <div id="resume-area">
           <Resume
-            personalInfo={personalInfo}
-            educationInfo={educationInfo}
-            workInfo={workInfo}
+            personalInfo={mergeSingleWithLive(
+              personalInfo,
+              liveFormData.personalInfo,
+            )}
+            educationInfo={mergeWithLive(
+              educationInfo,
+              liveFormData.educationInfo,
+            )}
+            workInfo={mergeWithLive(workInfo, liveFormData.workInfo)}
             handleEditEntry={handleEditEntry}
             handleDeleteEntry={handleDeleteEntry}
           />

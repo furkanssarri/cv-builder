@@ -17,11 +17,17 @@ const ResumeMain = ({
     return null;
 
   const { firstName, lastName, title, about } = personalInfo[0];
+
+  if (firstName === "undefined" || lastName === "undefined") {
+    return null;
+  }
+
   return (
     <main>
-      <h1>{`${firstName} ${lastName}`}</h1>
-      <h2>{title}</h2>
-      <p>{about}</p>
+      <h1>
+        {firstName} {lastName}
+      </h1>
+      <h2>{title}</h2> <p>{about}</p>
       {workInfo.length > 0 && (
         <>
           <SectionHeader title="Experience" />
@@ -31,7 +37,7 @@ const ResumeMain = ({
                 key={work.id}
                 data={work}
                 index={index}
-                section="Work Experience"
+                section="Experience"
                 onEdit={onEdit}
                 onDelete={onDelete}
               />
@@ -48,7 +54,7 @@ const ResumeMain = ({
                 key={edu.id}
                 data={edu}
                 index={index}
-                section="Education Info"
+                section="Education"
                 onEdit={onEdit}
                 onDelete={onDelete}
               />
