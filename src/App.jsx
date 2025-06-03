@@ -97,21 +97,22 @@ function App() {
     return [liveDraft]; // personalInfo is always one entry
   }
 
-  console.log(skillInfo, languageInfo, hobbyInfo);
-
   function mergeArrayWithLive(savedArray, liveDraft, title) {
     const arrayToUse = Array.isArray(savedArray) ? savedArray : [];
 
     if (
       editingIndex.section === title ||
-      !liveDraft ||
+      // !liveDraft ||
       !Array.isArray(liveDraft) ||
       liveDraft.every((item) => item === "")
     )
       return arrayToUse;
 
+    const uniqueLive = liveDraft.filter(
+      (str) => str.trim() && !arrayToUse.includes(str.trim()),
+    );
     // Merge strings into one array, remove empties
-    return [...arrayToUse, ...liveDraft.filter((str) => str.trim())];
+    return [...arrayToUse, ...uniqueLive];
   }
 
   return (

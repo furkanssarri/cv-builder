@@ -54,7 +54,7 @@ const ResumeAside = ({ personalInfo, skillInfo, languageInfo, hobbyInfo }) => {
         )}
       </div>
       {/* other sections will appear here in the future */}
-      <div className="section">
+      <div className="skills-and-languages">
         {skillInfo?.length > 0 && (
           <>
             <h4>Skills</h4>

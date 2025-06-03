@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import DynamicForm from "./DynamicForm.jsx";
+import { getItem } from "../../utils/storage.js";
 import {
   personalInfoFields,
   educationInfoFields,
@@ -75,9 +76,25 @@ const FormContainer = ({
 
   useEffect(() => {
     formSections.forEach(({ title, state }) => {
-      const stored = sessionStorage.getItem(title);
+      const stored = getItem(title);
       if (stored) {
-        state(JSON.parse(stored));
+        try {
+          // const parsed = JSON.parse(stored);
+          const parsed = stored; // Because we already parese in our custom getItem() helper in storage.js module
+          if (title === "Skills, Languages & Hobbies") {
+            state({
+              skills: Array.isArray(parsed.skills) ? parsed.skills : [""],
+              languages: Array.isArray(parsed.languages)
+                ? parsed.languages
+                : [""],
+              hobbies: Array.isArray(parsed.hobbies) ? parsed.hobbies : [""],
+            });
+          } else {
+            state(parsed);
+          }
+        } catch (err) {
+          console.warn(`Invalid JSON in sessionStorage for ${title}:`, err);
+        }
       }
     });
   }, []);
@@ -115,7 +132,10 @@ const FormContainer = ({
               storageKey={formSection.title}
               onSubmitData={formSection.state}
               editingIndex={
-                editingIndex.section === formSection.title ? editingIndex : null
+                formSection.title !== "Skills, Language & Hobbies" &&
+                editingIndex.section === formSection.title
+                  ? editingIndex
+                  : null
               }
               setEditingIndex={setEditingIndex}
               toggleSection={toggleSection}

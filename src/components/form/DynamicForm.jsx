@@ -30,11 +30,18 @@ const DynamicForm = ({
   // const [formData, setFormData] = useState(initialState);
   useEffect(() => {
     if (editingIndex?.section === storageKey && editingIndex.data) {
-      setFormData(editingIndex.data);
+      const filledForm = { ...initialState };
+
+      for (let key in editingIndex.data) {
+        if (key in filledForm) {
+          filledForm[key] = editingIndex.data[key];
+        }
+      }
+
+      setFormData(filledForm);
     } else if (
-      !editingIndex?.section &&
-      !formData?.skills &&
-      storageKey === "Skills, Languages & Hobbies"
+      storageKey === "Skills, Languages & Hobbies" &&
+      (!formData?.skills || !formData?.languages || !formData?.hobbies)
     ) {
       setFormData({
         skills: [""],
@@ -91,10 +98,7 @@ const DynamicForm = ({
       onSubmitData(updatedData);
     }
 
-    setFormData((prev) => ({
-      ...prev,
-      [fields.title]: fields.title === "personalInfo" ? {} : [],
-    }));
+    setFormData(initialState);
     setEditingIndex({
       section: null,
       index: null,
@@ -104,6 +108,13 @@ const DynamicForm = ({
       firstInputRef.current.focus();
     }
   };
+
+  if (
+    storageKey === "Skills, Languages & Hobbies" &&
+    (!formData?.skills || !formData?.languages || !formData?.hobbies)
+  ) {
+    return null; // Wait until formData is populated correctly
+  }
 
   return (
     <form onSubmit={handleSubmit}>

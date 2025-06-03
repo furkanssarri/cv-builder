@@ -3,6 +3,11 @@ export function storeItem(key, item) {
 }
 
 export function getItem(key) {
-  const item = sessionStorage.getItem(key);
-  return item ? JSON.parse(item) : [];
+  try {
+    const item = sessionStorage.getItem(key);
+    return item ? JSON.parse(item) : [];
+  } catch (err) {
+    console.warn(`Corrupt sessionStorage data for key "${key}"`, err);
+    return [];
+  }
 }
