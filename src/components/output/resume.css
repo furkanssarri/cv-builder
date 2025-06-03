@@ -14,6 +14,8 @@ aside {
   color: whitesmoke;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
+  gap: 2rem;
 }
 
 .profile-photo {
@@ -41,6 +43,22 @@ aside a:hover {
 
 aside p {
   margin: 0.5rem;
+}
+
+aside h4 {
+  text-align-last: left;
+}
+
+aside ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+aside ul li {
+  display: inline-block;
+  margin: 5px;
 }
 
 main {
@@ -151,11 +169,15 @@ button.edit:hover {
   color: #fff;
 }
 
-/* .section {
+.section {
   display: flex;
   flex-direction: column;
-  justify-content: ;
-} */
+  justify-content: space-around;
+}
+
+.hobbies {
+  justify-self: flex-end;
+}
 
 @media screen and (max-width: 1780px) {
   .resume-layout {
