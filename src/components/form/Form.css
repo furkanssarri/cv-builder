@@ -93,6 +93,18 @@ label {
   display: block;
 }
 
+.theme-selection {
+  margin: 1rem;
+}
+
+.theme-selection h4 {
+  margin: 5px;
+}
+
+.theme-button {
+  margin: 2.5px;
+}
+
 @media screen and (max-width: 900px) {
   form {
     margin: 0;

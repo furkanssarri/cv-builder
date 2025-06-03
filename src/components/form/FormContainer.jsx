@@ -21,6 +21,7 @@ const FormContainer = ({
   setSkillInfo,
   setLanguageInfo,
   setHobbyInfo,
+  setTheme,
 }) => {
   const [openSections, setOpenSections] = useState(new Set());
   const formSections = [
@@ -147,6 +148,7 @@ const FormContainer = ({
                   [formSection.sectionKey]: newData,
                 }))
               }
+              setTheme={setTheme}
             />
           )}
         </section>

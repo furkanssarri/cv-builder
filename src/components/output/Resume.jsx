@@ -10,6 +10,7 @@ const Resume = ({
   hobbyInfo,
   handleEditEntry,
   handleDeleteEntry,
+  themeColor,
 }) => {
   return (
     <div className="resume-layout">
@@ -18,6 +19,7 @@ const Resume = ({
         skillInfo={skillInfo}
         languageInfo={languageInfo}
         hobbyInfo={hobbyInfo}
+        themeColor={themeColor}
       />
       <ResumeMain
         personalInfo={personalInfo}

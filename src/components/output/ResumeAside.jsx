@@ -3,7 +3,13 @@ import { LuPhone, LuMail } from "react-icons/lu";
 import { FaGithub, FaMapMarkerAlt } from "react-icons/fa";
 import SectionHeader from "./SectionHeader";
 
-const ResumeAside = ({ personalInfo, skillInfo, languageInfo, hobbyInfo }) => {
+const ResumeAside = ({
+  personalInfo,
+  skillInfo,
+  languageInfo,
+  hobbyInfo,
+  themeColor,
+}) => {
   if (!Array.isArray(personalInfo) || personalInfo.length === 0) return null;
 
   const { email, phone, portfolio, shortAddress } = personalInfo[0]; // only one entry
@@ -18,7 +24,7 @@ const ResumeAside = ({ personalInfo, skillInfo, languageInfo, hobbyInfo }) => {
   }
 
   return (
-    <aside>
+    <aside style={{ backgroundColor: themeColor }}>
       <div className="essential-information">
         <div className="photo">
           <img

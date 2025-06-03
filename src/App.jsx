@@ -14,6 +14,7 @@ function App() {
   const [skillInfo, setSkillInfo] = useState({});
   const [languageInfo, setLanguageInfo] = useState([]);
   const [hobbyInfo, setHobbyInfo] = useState([]);
+  const [theme, setTheme] = useState("cadetblue");
   const [showDefaults, setSetshowDefaults] = useState(false);
   const [editingIndex, setEditingIndex] = useState({
     section: null,
@@ -131,6 +132,7 @@ function App() {
               setSkillInfo={setSkillInfo}
               setLanguageInfo={setLanguageInfo}
               setHobbyInfo={setHobbyInfo}
+              setTheme={setTheme}
             />
           </div>
           <button className="toggle-default-btn" onClick={toggleDefaultData}>
@@ -172,6 +174,7 @@ function App() {
             )}
             handleEditEntry={handleEditEntry}
             handleDeleteEntry={handleDeleteEntry}
+            themeColor={theme}
           />
         </div>
       </div>

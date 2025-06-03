@@ -1,5 +1,6 @@
 import { useEffect, useRef, useMemo } from "react";
 import { storeItem, getItem } from "../../utils/storage";
+import { themeColors } from "../../assets/formConfig";
 
 const DynamicForm = ({
   fields,
@@ -9,6 +10,7 @@ const DynamicForm = ({
   setEditingIndex,
   formData,
   setFormData,
+  setTheme,
 }) => {
   const initialState = useMemo(() => {
     return fields.reduce((acc, field) => {
@@ -192,6 +194,21 @@ const DynamicForm = ({
             )}
           </div>
         ))
+      )}
+      {themeColors && (
+        <div className="theme-selection">
+          <h4>Select Theme</h4>
+          {themeColors.map((color, i) => (
+            <button
+              key={`${color}-${i}`}
+              type="button"
+              className="theme-button"
+              title={`${color}`}
+              style={{ backgroundColor: color }}
+              onClick={() => setTheme(color)}
+            />
+          ))}
+        </div>
       )}
       <button type="submit">Submit</button>
     </form>

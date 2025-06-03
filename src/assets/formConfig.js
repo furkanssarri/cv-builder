@@ -36,3 +36,20 @@ export const languageInfoFields = [
 export const hobbyInfoFields = [
   { name: "hobbies", label: "Hobbies", type: "text" },
 ];
+
+export const themeColors = [
+  "cadetblue",
+  "dodgerblue",
+  "lightcoral",
+  "lightslategray",
+  "mediumaquamarine",
+  "mediumpurple",
+  "mediumseagreen",
+  "mediumslateblue",
+  "midnightblue",
+  "rebeccapurple",
+  "royalblue",
+  "seagreen",
+  "steelblue",
+  "teal",
+];
