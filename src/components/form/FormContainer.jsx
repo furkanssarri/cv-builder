@@ -4,6 +4,9 @@ import {
   personalInfoFields,
   educationInfoFields,
   workExperienceFields,
+  skillInfoFields,
+  languageInfoFields,
+  hobbyInfoFields,
 } from "../../assets/formConfig.js";
 
 const FormContainer = ({
@@ -14,6 +17,9 @@ const FormContainer = ({
   setEditingIndex,
   liveFormData,
   setLiveFormData,
+  setSkillInfo,
+  setLanguageInfo,
+  setHobbyInfo,
 }) => {
   const [openSections, setOpenSections] = useState(new Set());
   const formSections = [
@@ -37,6 +43,33 @@ const FormContainer = ({
       title: "Education",
       fields: educationInfoFields,
       state: setEducationInfo,
+    },
+    {
+      id: 3,
+      sectionKey: "miscInfo",
+      title: "Skills, Languages & Hobbies",
+      fields: [...skillInfoFields, ...languageInfoFields, ...hobbyInfoFields],
+      state: (updated) => {
+        if (updated && typeof updated === "object") {
+          const skills = Array.isArray(updated.skills) ? updated.skills : [];
+          const languages = Array.isArray(updated.languages)
+            ? updated.languages
+            : [];
+          const hobbies = Array.isArray(updated.hobbies) ? updated.hobbies : [];
+
+          setSkillInfo(skills);
+          setLanguageInfo(languages);
+          setHobbyInfo(hobbies);
+          setLiveFormData((prev) => ({
+            ...prev,
+            miscInfo: {
+              skills,
+              languages,
+              hobbies,
+            },
+          }));
+        }
+      },
     },
   ];
 

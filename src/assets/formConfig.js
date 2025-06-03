@@ -24,3 +24,15 @@ export const educationInfoFields = [
   { name: "startYear", label: "Start Year", type: "text" },
   { name: "endYear", label: "End Year", type: "text" },
 ];
+
+export const skillInfoFields = [
+  { name: "skills", label: "Skills", type: "text" },
+];
+
+export const languageInfoFields = [
+  { name: "languages", label: "Languages", type: "text" },
+];
+
+export const hobbyInfoFields = [
+  { name: "hobbies", label: "Hobbies", type: "text" },
+];

@@ -11,6 +11,9 @@ function App() {
   const [personalInfo, setPersonalInfo] = useState(null);
   const [educationInfo, setEducationInfo] = useState([]);
   const [workInfo, setWorkInfo] = useState([]);
+  const [skillInfo, setSkillInfo] = useState({});
+  const [languageInfo, setLanguageInfo] = useState([]);
+  const [hobbyInfo, setHobbyInfo] = useState([]);
   const [showDefaults, setSetshowDefaults] = useState(false);
   const [editingIndex, setEditingIndex] = useState({
     section: null,
@@ -22,6 +25,11 @@ function App() {
     personalInfo: {},
     educationInfo: [],
     workInfo: [],
+    miscInfo: {
+      skills: [""],
+      languages: [""],
+      hobbies: [""],
+    },
   });
 
   const toggleDefaultData = () => {
@@ -89,6 +97,23 @@ function App() {
     return [liveDraft]; // personalInfo is always one entry
   }
 
+  console.log(skillInfo, languageInfo, hobbyInfo);
+
+  function mergeArrayWithLive(savedArray, liveDraft, title) {
+    const arrayToUse = Array.isArray(savedArray) ? savedArray : [];
+
+    if (
+      editingIndex.section === title ||
+      !liveDraft ||
+      !Array.isArray(liveDraft) ||
+      liveDraft.every((item) => item === "")
+    )
+      return arrayToUse;
+
+    // Merge strings into one array, remove empties
+    return [...arrayToUse, ...liveDraft.filter((str) => str.trim())];
+  }
+
   return (
     <div className="App">
       <div className="container">
@@ -102,6 +127,9 @@ function App() {
               setEditingIndex={setEditingIndex}
               liveFormData={liveFormData}
               setLiveFormData={setLiveFormData}
+              setSkillInfo={setSkillInfo}
+              setLanguageInfo={setLanguageInfo}
+              setHobbyInfo={setHobbyInfo}
             />
           </div>
           <button className="toggle-default-btn" onClick={toggleDefaultData}>
@@ -125,6 +153,21 @@ function App() {
               workInfo,
               liveFormData.workInfo,
               "Experience",
+            )}
+            skillInfo={mergeArrayWithLive(
+              skillInfo,
+              liveFormData.miscInfo.skills,
+              "Skills, Languages & Hobbies",
+            )}
+            languageInfo={mergeArrayWithLive(
+              languageInfo,
+              liveFormData.miscInfo.languages,
+              "Skills, Languages & Hobbies",
+            )}
+            hobbyInfo={mergeArrayWithLive(
+              hobbyInfo,
+              liveFormData.miscInfo.hobbies,
+              "Skills, Languages & Hobbies",
             )}
             handleEditEntry={handleEditEntry}
             handleDeleteEntry={handleDeleteEntry}

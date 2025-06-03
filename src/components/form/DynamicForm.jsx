@@ -1,5 +1,5 @@
 import { useEffect, useRef, useMemo } from "react";
-import { storeItem } from "../../utils/storage";
+import { storeItem, getItem } from "../../utils/storage";
 
 const DynamicForm = ({
   fields,
@@ -12,18 +12,36 @@ const DynamicForm = ({
 }) => {
   const initialState = useMemo(() => {
     return fields.reduce((acc, field) => {
-      acc[field.name] = "";
+      // If it's the special merged section, use an array
+      if (
+        storageKey === "Skills, Languages & Hobbies" &&
+        ["skills", "languages", "hobbies"].includes(field.name)
+      ) {
+        acc[field.name] = [""];
+      } else {
+        acc[field.name] = "";
+      }
       return acc;
     }, {});
-  }, [fields]);
+  }, [fields, storageKey]);
 
   const firstInputRef = useRef(null);
 
   // const [formData, setFormData] = useState(initialState);
   useEffect(() => {
-    if (editingIndex?.section === storageKey) {
+    if (editingIndex?.section === storageKey && editingIndex.data) {
       setFormData(editingIndex.data);
-    } else if (!editingIndex?.section) {
+    } else if (
+      !editingIndex?.section &&
+      !formData?.skills &&
+      storageKey === "Skills, Languages & Hobbies"
+    ) {
+      setFormData({
+        skills: [""],
+        languages: [""],
+        hobbies: [""],
+      });
+    } else if (!editingIndex?.section && formData === undefined) {
       setFormData(initialState);
     }
   }, [editingIndex, initialState, storageKey]);
@@ -54,19 +72,25 @@ const DynamicForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const existingData = JSON.parse(sessionStorage.getItem(storageKey)) || [];
+    const existingData = getItem(storageKey);
     const newItem = {
       ...formData,
       id: crypto.randomUUID(),
     };
 
-    const updatedData = editingIndex
-      ? existingData.map((item, i) =>
-          i === editingIndex.index ? { ...formData, id: item.id } : item,
-        )
-      : [...existingData, newItem];
-    storeItem(storageKey, updatedData);
-    onSubmitData(updatedData);
+    if (storageKey === "Skills, Languages & Hobbies") {
+      storeItem(storageKey, formData);
+      onSubmitData(formData);
+    } else {
+      const updatedData = editingIndex
+        ? existingData.map((item, i) =>
+            i === editingIndex.index ? { ...formData, id: item.id } : item,
+          )
+        : [...existingData, newItem];
+      storeItem(storageKey, updatedData);
+      onSubmitData(updatedData);
+    }
+
     setFormData((prev) => ({
       ...prev,
       [fields.title]: fields.title === "personalInfo" ? {} : [],
@@ -83,42 +107,81 @@ const DynamicForm = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      {fields.map(({ name, label, type, accept }, index) => (
-        <div key={name}>
-          <label htmlFor={name}>{label}</label>
-          {type !== "textarea" && type !== "file" && (
-            <input
-              type={type}
-              id={name}
-              name={name}
-              value={formData[name] || ""}
-              onChange={handleChange}
-              ref={index === 0 ? firstInputRef : null}
-            />
-          )}
-
-          {type === "textarea" && (
-            <textarea
-              rows="5"
-              cols="33"
-              id={name}
-              name={name}
-              value={formData[name] || ""}
-              onChange={handleChange}
-            />
-          )}
-
-          {type === "file" && (
-            <input
-              type={type}
-              id={name}
-              name={name}
-              accept={accept}
-              onChange={handleChange}
-            />
-          )}
-        </div>
-      ))}
+      {storageKey === "Skills, Languages & Hobbies" ? (
+        <>
+          {["skills", "languages", "hobbies"].map((category) => (
+            <div key={category}>
+              <label>
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </label>
+              {(formData[category] || []).map((val, i) => (
+                <input
+                  key={`${category}-${i}`}
+                  type="text"
+                  name={category}
+                  value={val}
+                  onChange={(e) => {
+                    const updated = [...formData[category]];
+                    updated[i] = e.target.value;
+                    setFormData({ ...formData, [category]: updated });
+                  }}
+                  onKeyDown={(e) => {
+                    const isLast = i === formData[category].length - 1;
+                    const underLimit = formData[category].length < 5;
+                    if (
+                      e.key === "Enter" &&
+                      val.trim() &&
+                      isLast &&
+                      underLimit
+                    ) {
+                      e.preventDefault();
+                      setFormData({
+                        ...formData,
+                        [category]: [...formData[category], ""],
+                      });
+                    }
+                  }}
+                />
+              ))}
+            </div>
+          ))}
+        </>
+      ) : (
+        fields.map(({ name, label, type, accept }, index) => (
+          <div key={name}>
+            <label htmlFor={name}>{label}</label>
+            {type !== "textarea" && type !== "file" && (
+              <input
+                type={type}
+                id={name}
+                name={name}
+                value={formData[name] || ""}
+                onChange={handleChange}
+                ref={index === 0 ? firstInputRef : null}
+              />
+            )}
+            {type === "textarea" && (
+              <textarea
+                rows="5"
+                cols="33"
+                id={name}
+                name={name}
+                value={formData[name] || ""}
+                onChange={handleChange}
+              />
+            )}
+            {type === "file" && (
+              <input
+                type={type}
+                id={name}
+                name={name}
+                accept={accept}
+                onChange={handleChange}
+              />
+            )}
+          </div>
+        ))
+      )}
       <button type="submit">Submit</button>
     </form>
   );
