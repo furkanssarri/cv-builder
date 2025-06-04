@@ -14,17 +14,18 @@ aside {
   color: whitesmoke;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   gap: 2rem;
 }
 
 .profile-photo {
   width: 200px;
   height: 200px;
-  border: 2px solid #f0f0f0;
+  border: 3px solid #f0f0f0;
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
 }
 
 .photo {
@@ -129,6 +130,7 @@ main .data-section .data-row:last-child {
   flex-direction: column;
   justify-content: space-around;
   align-items: flex-start;
+  margin-bottom: 3rem;
 }
 
 .entry-wrapper {

@@ -11,7 +11,7 @@ function App() {
   const [personalInfo, setPersonalInfo] = useState(null);
   const [educationInfo, setEducationInfo] = useState([]);
   const [workInfo, setWorkInfo] = useState([]);
-  const [skillInfo, setSkillInfo] = useState({});
+  const [skillInfo, setSkillInfo] = useState([]);
   const [languageInfo, setLanguageInfo] = useState([]);
   const [hobbyInfo, setHobbyInfo] = useState([]);
   const [theme, setTheme] = useState("cadetblue");

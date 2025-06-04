@@ -158,6 +158,21 @@ const DynamicForm = ({
               ))}
             </div>
           ))}
+          {themeColors && (
+            <div className="theme-selection">
+              <h4>Select Theme</h4>
+              {themeColors.map((color, i) => (
+                <button
+                  key={`${color}-${i}`}
+                  type="button"
+                  className="theme-button"
+                  title={`${color}`}
+                  style={{ backgroundColor: color }}
+                  onClick={() => setTheme(color)}
+                />
+              ))}
+            </div>
+          )}
         </>
       ) : (
         fields.map(({ name, label, type, accept }, index) => (
@@ -195,21 +210,7 @@ const DynamicForm = ({
           </div>
         ))
       )}
-      {themeColors && (
-        <div className="theme-selection">
-          <h4>Select Theme</h4>
-          {themeColors.map((color, i) => (
-            <button
-              key={`${color}-${i}`}
-              type="button"
-              className="theme-button"
-              title={`${color}`}
-              style={{ backgroundColor: color }}
-              onClick={() => setTheme(color)}
-            />
-          ))}
-        </div>
-      )}
+
       <button type="submit">Submit</button>
     </form>
   );
