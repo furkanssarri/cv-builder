@@ -10,6 +10,28 @@ import {
   hobbyInfoFields,
 } from "../../assets/formConfig.js";
 
+const updateMiscInfoState = (
+  updated,
+  { setSkillInfo, setLanguageInfo, setHobbyInfo, setLiveFormData },
+) => {
+  if (updated && typeof updated === "object") {
+    const skills = Array.isArray(updated.skills) ? updated.skills : [];
+    const languages = Array.isArray(updated.languages) ? updated.languages : [];
+    const hobbies = Array.isArray(updated.hobbies) ? updated.hobbies : [];
+    setSkillInfo(skills);
+    setLanguageInfo(languages);
+    setHobbyInfo(hobbies);
+    setLiveFormData((prev) => ({
+      ...prev,
+      miscInfo: {
+        skills,
+        languages,
+        hobbies,
+      },
+    }));
+  }
+};
+
 const FormContainer = ({
   setPersonalInfo,
   setEducationInfo,
@@ -24,6 +46,13 @@ const FormContainer = ({
   setTheme,
 }) => {
   const [openSections, setOpenSections] = useState(new Set());
+
+  const miscFields = [
+    ...skillInfoFields,
+    ...languageInfoFields,
+    ...hobbyInfoFields,
+  ];
+
   const formSections = [
     {
       id: 0,
@@ -50,28 +79,14 @@ const FormContainer = ({
       id: 3,
       sectionKey: "miscInfo",
       title: "Skills, Languages & Hobbies",
-      fields: [...skillInfoFields, ...languageInfoFields, ...hobbyInfoFields],
-      state: (updated) => {
-        if (updated && typeof updated === "object") {
-          const skills = Array.isArray(updated.skills) ? updated.skills : [];
-          const languages = Array.isArray(updated.languages)
-            ? updated.languages
-            : [];
-          const hobbies = Array.isArray(updated.hobbies) ? updated.hobbies : [];
-
-          setSkillInfo(skills);
-          setLanguageInfo(languages);
-          setHobbyInfo(hobbies);
-          setLiveFormData((prev) => ({
-            ...prev,
-            miscInfo: {
-              skills,
-              languages,
-              hobbies,
-            },
-          }));
-        }
-      },
+      fields: miscFields,
+      state: (updated) =>
+        updateMiscInfoState(updated, {
+          setSkillInfo,
+          setLanguageInfo,
+          setHobbyInfo,
+          setLiveFormData,
+        }),
     },
   ];
 
@@ -119,40 +134,40 @@ const FormContainer = ({
 
   return (
     <>
-      {formSections.map((formSection, index) => (
-        <section key={index} className="form-section">
-          <button
-            className="accordion-toggle"
-            onClick={() => toggleSection(formSection.title)}
-          >
-            <h3>{formSection.title}</h3>
-          </button>
-          {openSections.has(index) && (
-            <DynamicForm
-              fields={formSection.fields}
-              storageKey={formSection.title}
-              onSubmitData={formSection.state}
-              editingIndex={
-                formSection.title !== "Skills, Language & Hobbies" &&
-                editingIndex.section === formSection.title
-                  ? editingIndex
-                  : null
-              }
-              setEditingIndex={setEditingIndex}
-              toggleSection={toggleSection}
-              formSectionIndex={index}
-              formData={liveFormData[formSection.sectionKey]}
-              setFormData={(newData) =>
-                setLiveFormData((prev) => ({
-                  ...prev,
-                  [formSection.sectionKey]: newData,
-                }))
-              }
-              setTheme={setTheme}
-            />
-          )}
-        </section>
-      ))}
+      {formSections.map((formSection, index) => {
+        const isEditable =
+          formSection.title !== "Skills, Language & Hobbies" &&
+          editingIndex.section === formSection.title;
+        return (
+          <section key={index} className="form-section">
+            <button
+              className="accordion-toggle"
+              onClick={() => toggleSection(formSection.title)}
+            >
+              <h3>{formSection.title}</h3>
+            </button>
+            {openSections.has(index) && (
+              <DynamicForm
+                fields={formSection.fields}
+                storageKey={formSection.title}
+                onSubmitData={formSection.state}
+                editingIndex={isEditable ? editingIndex : null}
+                setEditingIndex={setEditingIndex}
+                toggleSection={toggleSection}
+                formSectionIndex={index}
+                formData={liveFormData[formSection.sectionKey]}
+                setFormData={(newData) =>
+                  setLiveFormData((prev) => ({
+                    ...prev,
+                    [formSection.sectionKey]: newData,
+                  }))
+                }
+                setTheme={setTheme}
+              />
+            )}
+          </section>
+        );
+      })}
     </>
   );
 };
